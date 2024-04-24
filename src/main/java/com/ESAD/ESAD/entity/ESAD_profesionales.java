@@ -64,4 +64,16 @@ public class ESAD_profesionales {
             inverseJoinColumns = @JoinColumn(name = "role_id") // Columna que refiere a la entidad opuesta
     )
     private Set<ESAD_profesionalesRoleEntity> roles;
+
+    @Column(name = "is_Enabled")
+    private boolean isEnabled;
+
+    @Column(name = "account_no_expired")
+    private boolean accountNoExpired;
+
+    @Column(name = "account_no_llocked")
+    private boolean accountNolLocked;
+
+    @Column(name = "credential_no_expired")
+    private boolean credentialNoExpired;
 }

@@ -8,6 +8,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,4 +26,12 @@ public class ESAD_profesionalesRoleEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "rol")
     private Erole rol;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "user_permision_union", // Esto es el nombre de la tabla de unión
+            joinColumns = @JoinColumn(name = "role_id"), // Columna que refiere a la entidad actual
+            inverseJoinColumns = @JoinColumn(name = "permission_id") // Columna que refiere a la entidad opuesta
+    )
+    private Set<ESAD_profesionalesPermissionEntity> permissionList = new HashSet<>();
 }
