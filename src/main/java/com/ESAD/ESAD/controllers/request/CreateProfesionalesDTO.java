@@ -50,6 +50,12 @@ public class CreateProfesionalesDTO {
     @NotBlank
     private Set<Erole> roles;
 
+    // Propiedades adicionales para manejo del estado del usuario
+    private boolean isEnabled = true;
+    private boolean accountNoExpired = true;
+    private boolean accountNoLocked = true;
+    private boolean credentialsNoExpired = true;
+
     // En este caso no incluimos roles porque normalmente se asignan después de crear el usuario o a través de un proceso diferente
 }
 

@@ -38,6 +38,11 @@ public class ProfesionalesController{
                 .password(createProfesionalesDTO.getPassword())
                 .email(createProfesionalesDTO.getEmail())
                 .cualificacion(createProfesionalesDTO.getCualificacion())
+
+                .isEnabled(createProfesionalesDTO.isEnabled())
+                .accountNoExpired(createProfesionalesDTO.isAccountNoExpired())
+                .accountNoLocked(createProfesionalesDTO.isAccountNoLocked())
+                .credentialNoExpired(createProfesionalesDTO.isCredentialsNoExpired())
                 .build();
 
         // Roles y más propiedades podrían ser configuradas aquí

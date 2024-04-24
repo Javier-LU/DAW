@@ -57,7 +57,8 @@ public class ESAD_profesionales {
     @Column(name = "cualificacion")
     private String cualificacion;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = ESAD_profesionalesRoleEntity.class, cascade = CascadeType.PERSIST)
+    //@ManyToMany(fetch = FetchType.EAGER, targetEntity = ESAD_profesionalesRoleEntity.class, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(
             name = "user_roles_union", // Esto es el nombre de la tabla de unión
             joinColumns = @JoinColumn(name = "user_id"), // Columna que refiere a la entidad actual
@@ -71,8 +72,8 @@ public class ESAD_profesionales {
     @Column(name = "account_no_expired")
     private boolean accountNoExpired;
 
-    @Column(name = "account_no_llocked")
-    private boolean accountNolLocked;
+    @Column(name = "account_no_locked")
+    private boolean accountNoLocked;
 
     @Column(name = "credential_no_expired")
     private boolean credentialNoExpired;
