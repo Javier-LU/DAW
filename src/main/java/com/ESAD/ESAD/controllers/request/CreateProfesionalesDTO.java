@@ -52,9 +52,9 @@ public class CreateProfesionalesDTO {
 
     // Propiedades adicionales para manejo del estado del usuario
     private boolean isEnabled = true;
-    private boolean accountNoExpired = true;
-    private boolean accountNoLocked = true;
-    private boolean credentialsNoExpired = true;
+    private boolean isAccountNoExpired = true;
+    private boolean isAccountNoLocked = true;
+    private boolean isCredentialsNoExpired = true;
 
     // En este caso no incluimos roles porque normalmente se asignan después de crear el usuario o a través de un proceso diferente
 }

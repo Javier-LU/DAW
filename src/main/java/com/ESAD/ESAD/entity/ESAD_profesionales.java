@@ -70,11 +70,11 @@ public class ESAD_profesionales {
     private boolean isEnabled;
 
     @Column(name = "account_no_expired")
-    private boolean accountNoExpired;
+    private boolean isAccountNoExpired;
 
     @Column(name = "account_no_locked")
-    private boolean accountNoLocked;
+    private boolean isAccountNoLocked;
 
     @Column(name = "credential_no_expired")
-    private boolean credentialNoExpired;
+    private boolean isCredentialNoExpired;
 }

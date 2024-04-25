@@ -1,6 +1,7 @@
 package com.ESAD.ESAD.config;
 
 
+import com.ESAD.ESAD.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -65,18 +67,19 @@ public class SecurityConfig {
 
     //3º Necesita de dos componentes para autentificarse, la conexion con la base de datos y el encriptador de contraseñas
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(UserDetailServiceImpl uuserDetailServiceImpl) {
         // Crear una instancia del DaoAuthenticationProvider
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder (passwordEncoder());
-        provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(uuserDetailServiceImpl);
         return provider;
     }
 
     // Contraseña
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return  new BCryptPasswordEncoder();
+        //return NoOpPasswordEncoder.getInstance();
     }
 
     // Usuario
@@ -91,5 +94,19 @@ public class SecurityConfig {
 
         // Retorna una instancia de InMemoryUserDetailsManager con el usuario definido
         return new InMemoryUserDetailsManager(userDetails);
+    }
+
+    // Encriptar contraseñas manual
+    public static void main(String[] args) {
+        String contraseña = "1234";
+
+        // Crear un objeto BCryptPasswordEncoder
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        // Encriptar la contraseña
+        String contraseñaEncriptada = encoder.encode(contraseña);
+
+        // Imprimir la contraseña encriptada
+        System.out.println(contraseñaEncriptada);
     }
 }

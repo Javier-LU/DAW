@@ -10,4 +10,5 @@ public interface ProfesionalesRepository extends JpaRepository <ESAD_profesional
 
     Optional<ESAD_profesionales> findByEmail(String email);
 
+    Optional<ESAD_profesionales> findByNombre(String nombre);
 }

@@ -45,13 +45,13 @@ public class UserInitializer {
                 .primerApellido("User")
                 .segundoApellido("System")
                 .dni("99999999R")
-                .password("Admin2024!") // Use a secure, encrypted method for real passwords
+                .password("$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve") // Use a secure, encrypted method for real passwords
                 .email("admin@example.com")
                 .cualificacion("administrativo")
                 .isEnabled(true)
-                .accountNoExpired(true)
-                .accountNoLocked(true)
-                .credentialNoExpired(true)
+                .isAccountNoExpired(true)
+                .isAccountNoLocked(true)
+                .isCredentialNoExpired(true)
                 .roles(Set.of(adminRole))
                 .build();
 

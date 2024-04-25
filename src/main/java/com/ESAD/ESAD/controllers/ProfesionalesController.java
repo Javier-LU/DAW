@@ -9,6 +9,7 @@ import com.ESAD.ESAD.service.ProfesionalesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,19 +31,24 @@ public class ProfesionalesController{
 
     @PostMapping("/createProfesional")
     public ResponseEntity<ESAD_profesionales> createProfesional(@RequestBody CreateProfesionalesDTO createProfesionalesDTO) {
+
+        // Encriptar la contraseña utilizando BCryptPasswordEncoder
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String contrasenaEncriptada = encoder.encode(createProfesionalesDTO.getPassword());
+
         ESAD_profesionales newProfesional = ESAD_profesionales.builder()
                 .nombre(createProfesionalesDTO.getNombre())
                 .primerApellido(createProfesionalesDTO.getPrimerApellido())
                 .segundoApellido(createProfesionalesDTO.getSegundoApellido())
                 .dni(createProfesionalesDTO.getDni())
-                .password(createProfesionalesDTO.getPassword())
+                .password(contrasenaEncriptada)
                 .email(createProfesionalesDTO.getEmail())
                 .cualificacion(createProfesionalesDTO.getCualificacion())
 
                 .isEnabled(createProfesionalesDTO.isEnabled())
-                .accountNoExpired(createProfesionalesDTO.isAccountNoExpired())
-                .accountNoLocked(createProfesionalesDTO.isAccountNoLocked())
-                .credentialNoExpired(createProfesionalesDTO.isCredentialsNoExpired())
+                .isAccountNoExpired(createProfesionalesDTO.isAccountNoExpired())
+                .isAccountNoLocked(createProfesionalesDTO.isAccountNoLocked())
+                .isCredentialNoExpired(createProfesionalesDTO.isCredentialsNoExpired())
                 .build();
 
         // Roles y más propiedades podrían ser configuradas aquí
