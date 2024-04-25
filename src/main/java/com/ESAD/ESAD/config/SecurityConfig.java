@@ -1,6 +1,8 @@
 package com.ESAD.ESAD.config;
 
 
+import com.ESAD.ESAD.security.filter.jwtTokenValidator;
+import com.ESAD.ESAD.security.jwt.JwtUtils;
 import com.ESAD.ESAD.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -23,13 +25,15 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
 
-
+    @Autowired
+    private JwtUtils jwtUtils;
 
     // COnfigurar los primeros filtros
     @Bean
@@ -48,14 +52,14 @@ public class SecurityConfig {
 
                     // Ednpoint publicos
                     http.requestMatchers(HttpMethod.GET, "/hello").permitAll(); // Acceso permitido para todos
-
+                    http.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
                     //Endpoint privados
                     http.requestMatchers(HttpMethod.GET, "/hello2").hasAuthority("READ"); // Acceso restringido por autoridad
 
                     //Todos los demas
                     http.anyRequest().authenticated(); // Denegar todas las demás solicitudes
                 })
-
+                .addFilterBefore(new jwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
                 .build();
     }
 
