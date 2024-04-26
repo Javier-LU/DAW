@@ -20,15 +20,15 @@ public class ESAD_equipo {
     private Integer id;
 
     @NotBlank
-    @Size(min = 5, max = 150)
+    @Size(min = 3, max = 150)
     @Column(name = "equipo")
     private String equipo;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "medico_id")
     private ESAD_profesionales medico;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "enfermero_id")
     private ESAD_profesionales enfermero;
 

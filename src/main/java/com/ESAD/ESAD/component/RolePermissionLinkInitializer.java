@@ -30,10 +30,10 @@ public class RolePermissionLinkInitializer {
     @Transactional
     public void linkRolesAndPermissions() {
         // Asignar permisos específicos a cada rol
-        assignPermissionsToRole(Erole.ADMIN, new EPermission[]{EPermission.CREATE, EPermission.READ, EPermission.UPDATE, EPermission.DELETE});
-        assignPermissionsToRole(Erole.MANAGER, new EPermission[]{EPermission.READ, EPermission.UPDATE});
-        assignPermissionsToRole(Erole.SANITARY, new EPermission[]{EPermission.READ});
-        assignPermissionsToRole(Erole.ADMINISTRATIVE, new EPermission[]{EPermission.READ, EPermission.REFRACTOR});
+        assignPermissionsToRole(Erole.ADMIN, new EPermission[]{EPermission.CREATE, EPermission.READ, EPermission.UPDATE, EPermission.DELETE, EPermission.CREATEPROFESSIONAL, EPermission.CREATECS, EPermission.CREATETAREAS, EPermission.CREATEPATIENT});
+        assignPermissionsToRole(Erole.MANAGER, new EPermission[]{EPermission.CREATE, EPermission.READ, EPermission.UPDATE, EPermission.DELETE, EPermission.CREATEPROFESSIONAL, EPermission.CREATECS, EPermission.CREATETAREAS, EPermission.CREATEPATIENT});
+        assignPermissionsToRole(Erole.SANITARY, new EPermission[]{EPermission.CREATE, EPermission.READ, EPermission.UPDATE, EPermission.DELETE, EPermission.CREATETAREAS});
+        assignPermissionsToRole(Erole.ADMINISTRATIVE, new EPermission[]{EPermission.CREATE, EPermission.READ, EPermission.UPDATE, EPermission.DELETE, EPermission.CREATEPATIENT});
     }
 
     private void assignPermissionsToRole(Erole roleName, EPermission[] permissions) {

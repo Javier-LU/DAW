@@ -1,5 +1,6 @@
 package com.ESAD.ESAD.entity;
 
+import com.ESAD.ESAD.entity.enu.EEprofesion;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -51,11 +52,9 @@ public class ESAD_profesionales {
     @Column(name = "email")
     private String email;
 
-    @NotBlank(message = "La cualificación no puede estar vacía")
-    @Pattern(regexp = "^(enfermero|medico|administrativo|enfermera|medica|administrativa|auxiliar de clinica)$",
-            message = "La cualificación debe ser 'enfermero/a', 'medico/a', 'administrativo/a' o 'auxiliar de clinica'")
+    @Enumerated(EnumType.STRING)
     @Column(name = "cualificacion")
-    private String cualificacion;
+    private EEprofesion cualificacion;
 
     //@ManyToMany(fetch = FetchType.EAGER, targetEntity = ESAD_profesionalesRoleEntity.class, cascade = CascadeType.PERSIST)
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH})

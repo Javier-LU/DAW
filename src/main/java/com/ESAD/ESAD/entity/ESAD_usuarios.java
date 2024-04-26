@@ -72,7 +72,6 @@ public class ESAD_usuarios {
 
     @NotNull(message = "La edad no puede ser nula")
     @Min(value = 0, message = "La edad no puede ser menor que 0")
-
     @Column(name = "edad")
     private Integer edad;
 
@@ -85,6 +84,7 @@ public class ESAD_usuarios {
     @Column(name = "supera_90")
     private Boolean supera90;
 
+    @NotNull(message = "El campo de la enfermedad no puede ser nula")
     @ManyToOne
     @JoinColumn(name = "enfermedad_id")
     private ESAD_enfermedad enfermedad;
@@ -97,7 +97,7 @@ public class ESAD_usuarios {
     @Column(name = "lugar_salida")
     private String lugarSalida;
 
-    @NotNull(message = "La fecha del lugar de salida no puede ser nula")
+
     @PastOrPresent(message = "La fecha de la salida debe ser hoy o una fecha pasada")
     @Temporal(TemporalType.DATE)
     @Column(name = "lugar_fecha")

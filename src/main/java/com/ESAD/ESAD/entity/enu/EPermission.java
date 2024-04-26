@@ -5,5 +5,8 @@ public enum EPermission {
     READ,
     UPDATE,
     DELETE,
-    REFRACTOR
+    CREATEPROFESSIONAL,
+    CREATECS,
+    CREATETAREAS,
+    CREATEPATIENT
 }

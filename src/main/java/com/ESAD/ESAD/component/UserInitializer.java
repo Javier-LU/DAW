@@ -2,6 +2,7 @@ package com.ESAD.ESAD.component;
 
 import com.ESAD.ESAD.entity.ESAD_profesionales;
 import com.ESAD.ESAD.entity.ESAD_profesionalesRoleEntity;
+import com.ESAD.ESAD.entity.enu.EEprofesion;
 import com.ESAD.ESAD.entity.enu.Erole;
 import com.ESAD.ESAD.repository.ProfesionalesRepository;
 import com.ESAD.ESAD.repository.ProfesionalesRolesRepository;
@@ -47,7 +48,7 @@ public class UserInitializer {
                 .dni("99999999R")
                 .password("$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve") // Use a secure, encrypted method for real passwords
                 .email("admin@example.com")
-                .cualificacion("administrativo")
+                .cualificacion(EEprofesion.ADMINISTRATIVO)
                 .isEnabled(true)
                 .isAccountNoExpired(true)
                 .isAccountNoLocked(true)

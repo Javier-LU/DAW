@@ -1,6 +1,10 @@
 package com.ESAD.ESAD.controllers.request;
 
+import com.ESAD.ESAD.entity.enu.EEprofesion;
 import com.ESAD.ESAD.entity.enu.Erole;
+import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,10 +46,8 @@ public class CreateProfesionalesDTO {
     @Email(message = "El correo electrónico no es válido")
     private String email;
 
-    @NotBlank(message = "La cualificación no puede estar vacía")
-    @Pattern(regexp = "^(enfermero|medico|administrativo|enfermera|medica|administrativa|auxiliar de clinica)$",
-            message = "La cualificación debe ser 'enfermero/a', 'medico/a', 'administrativo/a' o 'auxiliar de clinica'")
-    private String cualificacion;
+    @Enumerated(EnumType.STRING)
+    private EEprofesion cualificacion;
 
     @NotBlank
     private Set<Erole> roles;
