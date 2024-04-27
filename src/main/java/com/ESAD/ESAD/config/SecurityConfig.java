@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
 
                 //Navegar sin token
-                .httpBasic(Customizer.withDefaults())
+                //.httpBasic(Customizer.withDefaults())
                 // Configuración de manejo de sesiones para ser STATELESS
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
@@ -53,11 +53,15 @@ public class SecurityConfig {
                     // Ednpoint publicos
                     http.requestMatchers(HttpMethod.GET, "/hello").permitAll(); // Acceso permitido para todos
                     http.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
+
+
                     //Endpoint privados
                     http.requestMatchers(HttpMethod.GET, "/hello2").hasAuthority("READ"); // Acceso restringido por autoridad
 
                     //Todos los demas
-                    http.anyRequest().authenticated(); // Denegar todas las demás solicitudes
+                     http.anyRequest().authenticated(); // Denegar todas las demás solicitudes
+
+
                 })
                 .addFilterBefore(new jwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
                 .build();

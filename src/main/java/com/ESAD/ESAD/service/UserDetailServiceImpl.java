@@ -6,6 +6,7 @@ import com.ESAD.ESAD.controllers.request.AuthReponse;
 import com.ESAD.ESAD.entity.ESAD_profesionales;
 import com.ESAD.ESAD.repository.ProfesionalesRepository;
 import com.ESAD.ESAD.security.jwt.JwtUtils;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +24,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
+@Data
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 

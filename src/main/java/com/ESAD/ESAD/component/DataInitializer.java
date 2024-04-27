@@ -139,11 +139,11 @@ public class DataInitializer {
             //-----------------------------------------------------
             // Inicialización esad_equipo
 
-            String[] columnEquipo2 = {"equipo", "medico_id", "enfermero_id", "auxiliar_id"};
+            String[] columnEquipo2 = {"equipo" , "centro", "medico_id", "enfermero_id", "auxiliar_id","administrativo_id"};
             String[][] dataEquipo2 = {
 
-                    {"Roberto", "3", "5", "2"},
-                    {"Marta", "4", "6", "2"}
+                    {"Roberto", "Rosales", "3", "5", "2", "7"},
+                    {"Marta", "Rosales", "4", "6", "2", "7"}
             };
 
             for (String[] rowData : dataEquipo2) {
@@ -157,13 +157,9 @@ public class DataInitializer {
                     }
                 }
                 for (int i = 0; i < rowData.length; i++) {
-                    if (i == 0) {
-                        insertSqlBuilder.append("'");
-                    }
-                    insertSqlBuilder.append(rowData[i]);
-                    if (i == 0) {
-                        insertSqlBuilder.append("'");
-                    }
+                    insertSqlBuilder.append("'");
+                    insertSqlBuilder.append(rowData[i].replace("'", "''")); // Escapar comillas simples
+                    insertSqlBuilder.append("'");
                     if (i < rowData.length - 1) {
                         insertSqlBuilder.append(", ");
                     } else {

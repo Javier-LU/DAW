@@ -36,4 +36,13 @@ public class ESAD_equipo {
     @JoinColumn(name = "auxiliar_id")
     private ESAD_profesionales auxiliar;
 
+    @ManyToOne
+    @JoinColumn(name = "administrativo_id")
+    private ESAD_profesionales administrativo;
+
+    @NotBlank(message = "El primer centro no puede estar vacío")
+    @Size(max = 50, message = "El nombre del centro  no puede tener más de 50 caracteres")
+    @Column(name = "centro")
+    private String centro;
+
 }

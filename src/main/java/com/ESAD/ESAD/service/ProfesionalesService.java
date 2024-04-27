@@ -22,6 +22,9 @@ public class ProfesionalesService {
     @Autowired
     private ProfesionalesRolesRepository profesionalesRolesRepository;
 
+
+
+
     public ESAD_profesionales saveProfesional(ESAD_profesionales profesional, Set<Erole> roleNames) {
         Set<ESAD_profesionalesRoleEntity> roles = new HashSet<>();
         for (Erole role : roleNames) {
@@ -40,6 +43,8 @@ public class ProfesionalesService {
     public List<ESAD_profesionales> getAllProfesionales() {
         return profesionalesRepository.findAll();
     }
+
+
 
 
 

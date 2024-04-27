@@ -1,7 +1,9 @@
 package com.ESAD.ESAD.service;
 
 import com.ESAD.ESAD.entity.ESAD_enfermedad;
+import com.ESAD.ESAD.entity.ESAD_equipo;
 import com.ESAD.ESAD.repository.EnfermedadRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class EnfermedadService {
     //  Listar todas
     public List<ESAD_enfermedad> getAllEnfermedades() {
         return repository.findAll();
+    }
+
+    public ESAD_enfermedad getEnfermedadById(Integer enfermedadId) {
+        return repository.findById(enfermedadId)
+                .orElseThrow(() -> new EntityNotFoundException("Enfermedad no encontrado con ID: " + enfermedadId));
     }
 
     //  Eliminar una enfermedad por ID

@@ -21,19 +21,19 @@ public class EnfermedadController {
     }
 
     // Eliminar una enfermedad por ID
-    @DeleteMapping("/DeleteEnfermedad/{id}")
-    public String deleteEnfermedad(@PathVariable int id) {return service.deleteEnfermedad(id); }
+    //  @DeleteMapping("/DeleteEnfermedad/{id}")
+    //  public String deleteEnfermedad(@PathVariable int id) {return service.deleteEnfermedad(id); }
 
 
 
     // Crear una nueva enfermedad
-    @PostMapping("/saveEnfermedad")
-    public ESAD_enfermedad createEnfermedad(@RequestBody ESAD_enfermedad enfermedad) {
-        return service.saveEnfermedad(enfermedad);
-    }
+    //  @PostMapping("/saveEnfermedad")
+    //  public ESAD_enfermedad createEnfermedad(@RequestBody ESAD_enfermedad enfermedad) {
+    //     return service.saveEnfermedad(enfermedad);
+    // }
     // Actualizar una enfermedad existente
-    @PutMapping("/updateEnfermedad")
-    public ESAD_enfermedad updateEnfermedad(@RequestBody ESAD_enfermedad enfermedad) {
-        return service.updateEnfermedad(enfermedad);
-    }
+    // @PutMapping("/updateEnfermedad")
+    //  public ESAD_enfermedad updateEnfermedad(@RequestBody ESAD_enfermedad enfermedad) {
+    //     return service.updateEnfermedad(enfermedad);
+    //  }
 }

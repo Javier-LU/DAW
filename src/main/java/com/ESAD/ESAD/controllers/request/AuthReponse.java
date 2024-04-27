@@ -7,4 +7,5 @@ public record AuthReponse(String username,
                           String message,
                           String jwt,
                           boolean status) {
+
 }
