@@ -1,0 +1,30 @@
+@import '../../datos/mixedVariables.scss';
+
+.datos {
+  
+    width: 100%;
+
+  
+    table{
+        width: 100%;
+    }
+    tr {
+        color: $active-color-border;
+        width: 100%;
+       display: flex;
+       justify-content: space-between;
+       margin-bottom: 10px;
+        font-size: 14px;
+    }
+}
+
+.botonesConf-container{
+    justify-content: left;
+    margin-top: 10px;  
+}
+.botonesConf{
+    width: 130px;
+ 
+    margin: 0;
+   
+}

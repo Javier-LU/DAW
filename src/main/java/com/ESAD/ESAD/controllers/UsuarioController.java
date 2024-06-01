@@ -81,7 +81,7 @@ public class UsuarioController {
     // Actualizar una usuario por ID
     @PutMapping("/update/{id}")
     public ESAD_usuarios updateUsuario(@PathVariable Integer id, @RequestBody CreateUsuarioDTO usuario) {
-
+        usuario.setId(id);
         return service.updateUsuario(usuario);
     }
 

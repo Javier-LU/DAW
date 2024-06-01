@@ -1,0 +1,329 @@
+@import '../../datos/mixedVariables.scss';
+
+.box {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: right;
+    flex-direction: column;
+    overflow: auto;
+    @include respond-to(small) {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+}
+
+.box-borde {
+    border: 2px solid #E5E8EB;
+    border-radius: 10px;
+
+}
+
+.custom-table {
+
+    border-collapse: collapse;
+    min-width: 1200px;
+
+    th,
+    td {
+        padding: 8px 12px;
+        border: none;
+        text-align: center;
+        font-weight: normal;
+        vertical-align: middle
+    }
+
+
+
+    thead {
+        font-size: 14px;
+        border-bottom: 2px solid #ddd;
+        vertical-align: top;
+
+    }
+
+    tbody tr {
+
+        height: 55px;
+        cursor: pointer;
+        border-bottom: 1px solid #e4e4e4; // Agregamos líneas horizontales entre las filas del cuerpo
+    }
+
+    tbody tr:nth-child(even) {
+
+        background-color: #f9f9f9;
+    }
+
+
+    tbody tr:focus,
+    tbody tr:hover {
+        background-color: lighten($active-fila, 20%);
+
+    }
+
+    tbody tr:active {
+        background-color: $hover-fila;
+
+    }
+
+    tbody tr:visited {
+        background-color: $hover-fila;
+
+    }
+
+    tbody tr.active {
+        background-color: $active-fila;
+
+    }
+
+    tbody tr.selected {
+        background-color: $active-fila; // Use your defined color variable or a specific color
+    }
+
+
+    // Estilo para ajustar la anchura de las columnas
+    th.id,
+    td.id {
+        display: none;
+    }
+
+    th.historico,
+    td.historico {
+        min-width: 100px;
+        @include respond-to(small) {
+            display: none;
+        }
+    }
+
+
+    th.equipo,
+    td.equipo {
+        min-width: 120px;
+        color: $alternative-color;
+
+        @include respond-to(small) {
+            display: none;
+        }
+
+        
+    }
+
+
+    .settings-icon {
+        margin: 0;
+        width: 100%;
+        color: $alternative-color;
+    }
+
+    th.tarea,
+    td.tarea {
+        min-width: 100px;
+        @include respond-to(small) {
+            display: none;
+        }
+        
+    }
+
+    input.tarea {
+        color: $alternative-color;
+    }
+
+    th.fechaIngreso,
+    td.fechaIngreso {
+        min-width: 150px;
+        @include respond-to(small) {
+            display: none;
+        }
+    }
+
+    input.fechaIngreso {
+        color: $alternative-color;
+    }
+
+    th.nombre,
+    td.nombre {
+        min-width: 150px;
+        @include respond-to(small) {
+            min-width: 60px;
+            max-width: 61px;
+        }
+    }
+
+
+
+
+    th.dni,
+    td.dni {
+        min-width: 80px;
+                @include respond-to(small) {
+            display: none;
+        }
+
+    }
+
+    input.dni {
+        color: $alternative-color;
+    }
+
+    th.nacimiento,
+    td.nacimiento {
+        min-width: 150px;
+        @include respond-to(small) {
+            display: none;
+        }
+    }
+
+    .settings-icon-personalizado {
+        min-width: 100%;
+    }
+
+
+    th.residencia,
+    td.residencia {
+        min-width: 100px;
+        @include respond-to(small) {
+            display: none;
+        }
+    }
+
+    input.residencia {
+        color: $alternative-color;
+    }
+
+
+    th.direccion,
+    td.direccion {
+        min-width: 160px;
+        @include respond-to(small) {
+            min-width: 60px;
+            max-width: 61px;
+        }
+    }
+
+    input.direccion {
+        color: $alternative-color;
+    }
+
+    th.centroSalud,
+    td.centroSalud {
+        min-width: 160px;
+        @include respond-to(small) {
+            min-width: 60px;
+            max-width: 61px;
+        }
+    }
+
+    input.centroSalud {
+        color: $alternative-color;
+    }
+
+    th.enfermedad,
+    td.enfermedad {
+        min-width: 160px;
+        
+
+
+    }
+
+    th.fechaSalidaLugar,
+    td.fechaSalidaLugar {
+        min-width: 160px;
+
+        input {
+            margin-bottom: 2.5px
+        }
+
+        ;
+
+    }
+
+    input.fechaSalidaLugar {
+        color: $alternative-color;
+    }
+
+
+
+
+
+
+    select,
+    input {
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: center;
+        font-size: 12px;
+        padding: 0;
+        margin: 0;
+        color: $alternative-color;
+    }
+
+    select:hover,
+    input:hover {
+
+        color: $active-color;
+        outline: none; // Eliminar el contorno
+    }
+
+    select:focus,
+    input:focus {
+        border-bottom: 1px solid #555; // Línea inferior en el foco
+        color: $active-color;
+        outline: none; // Eliminar el contorno
+    }
+
+
+
+    input[type="text"]:focus {
+        outline: none;
+    }
+
+    th {
+        cursor: pointer;
+    }
+
+    th:hover {
+        border-bottom: 4px solid #787878;
+    }
+
+    th.selected {
+        border-bottom: 4px solid #787878;
+    }
+
+    .flecha {
+        margin-left: 5px;
+
+        width: 12px;
+        height: 12px;
+        visibility: hidden;
+    }
+
+    th.selected .flecha {
+        visibility: visible;
+    }
+
+    .flecha.asc {
+        transform: rotate(180deg);
+    }
+
+}

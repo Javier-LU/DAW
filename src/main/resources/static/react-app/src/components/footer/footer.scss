@@ -1,0 +1,53 @@
+@import '../datos/mixedVariables.scss';
+
+.footer-content{
+    @include respond-to(large) {
+        display: flex;
+    };
+    @include respond-to(medium) {
+        display: flex;
+    };
+    @include respond-to(small) {
+        display: none;
+    };
+  
+}
+.botonHeaderFooter{
+    @include respond-to(large) {
+        display: none;
+    };
+    @include respond-to(medium) {
+        display: none;
+    };
+    @include respond-to(small) {
+        display: flex;
+        
+    };
+}
+.navCentralFooter{
+    @include respond-to(large) {
+        display: none;
+    };
+    @include respond-to(medium) {
+        display: none;
+    };
+    @include respond-to(small) {
+        display: flex;
+    };
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    justify-content: center;
+}
+
+.grupoBotones{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.svgLogoFooter{
+    width: 40px;
+    height: 40px;
+}

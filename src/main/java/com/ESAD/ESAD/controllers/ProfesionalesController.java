@@ -1,6 +1,7 @@
 package com.ESAD.ESAD.controllers;
 
 import com.ESAD.ESAD.controllers.request.CreateProfesionalesDTO;
+import com.ESAD.ESAD.entity.ESAD_equipo;
 import com.ESAD.ESAD.entity.ESAD_profesionales;
 import com.ESAD.ESAD.entity.ESAD_profesionalesRoleEntity;
 import com.ESAD.ESAD.entity.enu.Erole;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 import java.util.Set;
 
 @RestController
+@RequestMapping("/profesionales")
 public class ProfesionalesController{
 
     @Autowired
@@ -26,9 +28,15 @@ public class ProfesionalesController{
 
 
 
+    // Actualizar una CS existente
+    @PutMapping("/update/{id}")
+    public ESAD_profesionales updateProfesional(@PathVariable Integer id, @RequestBody CreateProfesionalesDTO  profesionales) {
+        profesionales.setId(id);
+        return profesionalesService.updateProfesional(profesionales);
+    }
 
 
-
+    // Crear
     @PostMapping("/createProfesional")
     public ResponseEntity<ESAD_profesionales> createProfesional(@RequestBody CreateProfesionalesDTO createProfesionalesDTO) {
 
@@ -56,15 +64,21 @@ public class ProfesionalesController{
         return ResponseEntity.ok(savedProfesional);
     }
 
+    // Buscar por email
     @GetMapping("/email/{email}")
     public ResponseEntity<Optional<ESAD_profesionales>> getProfesionalByEmail(@PathVariable String email) {
         return ResponseEntity.ok(profesionalesService.findProfesionalByEmail(email));
     }
 
-    @GetMapping
+    // Buscar todos
+    @GetMapping("/all")
     public ResponseEntity<List<ESAD_profesionales>> getAllProfesionales() {
         return ResponseEntity.ok(profesionalesService.getAllProfesionales());
     }
 
+
+    // Eliminar una CS por ID
+    @DeleteMapping("/delete/{id}")
+    public String deleteCS(@PathVariable int id) {return profesionalesService.deleteProfesional(id); }
 
 }

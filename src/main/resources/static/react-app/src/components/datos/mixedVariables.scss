@@ -1,0 +1,208 @@
+// Colores
+$active-colorFondoIconoRueda: #ffdf9f;
+$normal-colorFondoIconoRueda: #efefef;
+
+$active-color: black;
+$active-color-border: rgb(105, 105, 105);
+$normal-color: #b7b7b7;
+$active-color-red: #ff6262;
+$normal-color-red: #ff9a9a;
+
+$active-color-white: rgb(157, 157, 157);
+$normal-color-white: #d3caca;
+$alternative-color: #876363;
+
+$hover-fila: #e0ffd9;
+$active-fila: #94d286;
+
+
+
+// Responsibe ----------------------------------
+$breakpoint-small: 768px;
+$breakpoint-medium: 1370px;
+$breakpoint-large: 4560px;
+
+$font-small: 14px;
+$font-medium: 16px;
+$font-large: 18px;
+
+@mixin respond-to($breakpoint) {
+    @if $breakpoint ==small {
+        @media (max-width: $breakpoint-small) {
+            @content;
+        }
+    }
+
+    @else if $breakpoint ==medium {
+        @media (max-width: $breakpoint-medium) {
+            @content;
+        }
+    }
+
+    @else if $breakpoint ==large {
+        @media (max-width: $breakpoint-large) {
+            @content;
+        }
+    }
+}
+
+
+// Color ----------------------------------
+// Colores para tema claro
+$color-bg-light: #ffffff;
+$color-text-light: #000000;
+
+// Colores para tema oscuro
+$color-bg-dark: #141414;
+$color-text-dark: #ffffff;
+
+@mixin theme-light {
+    background-color: $color-bg-light;
+    color: $color-text-light;
+}
+
+@mixin theme-dark {
+    background-color: $color-bg-dark;
+    color: $color-text-dark;
+}
+
+// Ajustes --------------------------------
+// Ajustar el espacio
+$espacio: 80px;
+$espacio-small: 20px;
+$resta: calc(#{$espacio} + #{$espacio});
+$resta-small: calc(#{$espacio-small} + #{$espacio-small}); 
+$fr: 100vw;
+$adjusted-fr: calc(#{$fr} - #{$resta});
+$adjusted-fr-small: calc(#{$fr} - #{$resta-small});
+
+// Botones --------------------------------
+// Color texto  para botones
+
+@mixin button-link($active-color, $normal-color,$active-color-red,$normal-color-red, $is-active: false) {
+
+
+
+    color: $normal-color;
+
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover,
+    &:focus {
+        color: lighten($active-color, 20%);
+        @if $is-active {
+            background-color: lighten($active-color-red, 5%); 
+            
+        }
+    }
+
+    &:active {
+        color: $normal-color;
+        @if $is-active {
+            background-color: $normal-color-red;
+           
+        }
+    }
+
+    &:visited {
+        color: $normal-color;
+        @if $is-active {
+            background-color:$normal-color-red ;
+            
+        }
+    }
+    &.active {
+        color: $active-color;
+        @if $is-active {
+            background-color:$active-color-red ;
+          
+        }
+    }
+}
+
+@mixin imput-Border() {
+
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover,
+    &:focus {
+        border: 1px solid lighten($active-color-border, 5%);
+       
+    }
+
+    &:active {
+         border: 1px solid $normal-color;
+    }
+
+    &:visited {
+         border: 1px solid $normal-color;
+    }
+    &.active {
+        border: 1px solid $active-color-border;
+    }
+
+}
+
+
+@mixin button-Box() {
+
+
+    background-color: $normal-colorFondoIconoRueda;
+    
+
+    &:hover,
+    &:focus {
+
+        background-color: lighten($active-colorFondoIconoRueda, 5%);
+    }
+
+    &:active {
+
+         background-color: $normal-colorFondoIconoRueda;
+    }
+
+    &:visited {
+         background-color: $normal-colorFondoIconoRueda;
+    }
+    &.active {
+        background-color: $active-colorFondoIconoRueda;
+    }
+}
+
+
+
+@mixin botonNormal() {
+    /* Quitar el margen y el relleno */
+    margin: 0;
+    padding: 0;
+
+    /* Quitar el borde y la sombra */
+    border: none;
+    box-shadow: none;
+
+    /* Quitar el fondo y el color del texto */
+    background: none;
+    /* color: inherit; */
+
+    /* Quitar el estilo de fuente */
+    /* font: inherit; */
+
+    /* Quitar la apariencia del navegador (en algunos navegadores) */
+    appearance: none;
+
+    /* Quitar cursor por defecto de botón, si no se quiere cursor en forma de mano */
+    /* cursor: default; */
+
+    /* En caso de que haya algún estilo de texto decorativo */
+    text-decoration: none;
+
+    /* Quitar cualquier otro estilo de usuario (opcional) */
+    /* outline: none; */
+    cursor: pointer;
+
+}

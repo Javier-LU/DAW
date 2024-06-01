@@ -1,0 +1,90 @@
+@import '../../datos/mixedVariables.scss';
+
+$resta23: calc(100% - 20px);
+
+.main-header{
+    display: flex;
+    justify-content: space-between;   
+    align-items: center;
+    margin-bottom: 20px; 
+   
+
+}
+
+.main-item{
+    
+    height: 35px;
+    border-bottom: 2px solid #E5E8EB;
+    display: flex;
+    justify-content: space-between;   
+    align-items: center;
+}
+
+.main-item ul{
+    display: flex;
+    margin-left: 30px;
+    padding: 0px;
+}
+
+.main-item li{
+    border-bottom: 4px solid #E5E8EB;  
+    height: 35px;
+    transition: border-bottom 0.3s ease, color 0.3s ease;
+    
+    button {
+        color: $normal-color;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.3s ease; 
+        &:hover,
+        &:focus {
+            color: lighten($active-color, 20%);
+        }
+    }
+
+    &.active {
+        border-bottom: 4px solid $active-color-border;
+        
+        button {
+            color: $active-color;
+        }
+    }
+
+}
+
+.delete-button{
+    @include botonNormal;
+    color: $normal-color;
+    margin-right: 20px;
+    &:hover,
+    &:focus {
+        color: lighten($active-color, 20%);
+    }
+}
+
+
+
+.menuBuscarEliminar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lupaContainer{
+    position: relative;
+    width: 140px;    
+}
+
+#buscar{
+    height: 25px;
+}
+
+#lupa{
+    position: absolute;
+    top: 6px;
+    right: 30px;
+    width: 15px;
+    height: 15px;
+}
+

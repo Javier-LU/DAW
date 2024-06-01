@@ -1,0 +1,153 @@
+@import '../datos/mixedVariables.scss';
+
+$aumento: 4px;
+
+#headerPersonalizado{
+    justify-content: space-between;
+  
+   
+}
+
+  .logo {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: $font-small;
+;
+    @include respond-to(large) {
+        font-size: calc($font-large + 8px);
+      };
+    
+      @include respond-to(medium) {
+        font-size: calc($font-medium + $aumento);
+      };
+    
+      @include respond-to(small) {
+        font-size: calc($font-small + $aumento);
+
+        
+      };
+    
+  }
+    .svgLogo{
+        @include respond-to(large) {
+            height: 26px;
+            width: 26px;
+          };
+        
+          @include respond-to(medium) {
+            height: 20px;
+            width: px;
+          };
+        
+          @include respond-to(small) {
+            height: 18px;
+            width: 18px;
+            display: none;
+          };
+      
+  }
+  #titulo{
+    @include respond-to(small) {
+    display: none;
+  }
+  }
+
+
+  .navCentral{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+
+    @include respond-to(small) {
+        display: flex;
+        justify-content: space-between;
+
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        
+    };
+  }
+
+  .botonHeader{
+    @include botonNormal();
+  color: inherit; /* Hereda el color del elemento padre */
+    text-decoration: none; /* Opcional: quita el subrayado */
+    @include button-link($active-color, $normal-color,$active-color-red,$normal-color-red,false);
+    @include respond-to(large) {
+        font-size: $font-large;
+      };
+    
+      @include respond-to(medium) {
+        font-size: $font-medium;
+      };
+    
+      @include respond-to(small) {
+        font-size: $font-small;
+        display: none;
+      };
+    
+}
+  .settings-icon {
+    @include botonNormal();
+    @include button-Box();
+    @include respond-to(large) {
+        display: flex;
+    };
+    @include respond-to(medium) {
+        display: flex;
+    };
+    @include respond-to(small) {
+        display: none;
+    };
+  
+    justify-content: center;
+    align-items: center;
+    background-color: $normal-colorFondoIconoRueda;
+    margin-left: 40px;
+    padding: 10px;    
+    border-radius: 10px;
+    color:black;
+
+    
+
+  }
+
+
+  #exit{
+    @include respond-to(large) {
+        display: flex;
+    };
+    @include respond-to(medium) {
+        display: flex;
+    };
+    @include respond-to(small) {
+        display: flex;
+        border-radius: 20px;
+    };
+    margin-left: 20px;
+    padding: 10px;
+  }
+  
+  #exitLogo{
+    @include respond-to(large) {
+        display: flex;
+    };
+    @include respond-to(medium) {
+        display: flex;
+    };
+    @include respond-to(small) {
+        display: flex;
+    };
+  }

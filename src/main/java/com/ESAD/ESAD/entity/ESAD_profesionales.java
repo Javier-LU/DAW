@@ -76,4 +76,5 @@ public class ESAD_profesionales {
 
     @Column(name = "credential_no_expired")
     private boolean isCredentialNoExpired;
+
 }

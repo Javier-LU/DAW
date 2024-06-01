@@ -5,6 +5,7 @@ import com.ESAD.ESAD.entity.enu.Erole;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,9 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class CreateProfesionalesDTO {
+
+    @Id
+    private Integer id;
 
     @NotBlank(message = "El nombre no puede estar vacío")
     @Size(max = 50, message = "El nombre no puede tener más de 50 caracteres")
