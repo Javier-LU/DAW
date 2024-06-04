@@ -52,6 +52,11 @@ public class ESAD_profesionales {
     @Column(name = "email")
     private String email;
 
+    @NotBlank(message = "El telefono no puede estar vacío")
+    @Column(name = "telefono")
+    private String telefono;
+
+
     @Enumerated(EnumType.STRING)
     @Column(name = "cualificacion")
     private EEprofesion cualificacion;

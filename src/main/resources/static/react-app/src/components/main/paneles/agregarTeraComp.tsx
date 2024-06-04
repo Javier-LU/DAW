@@ -1,6 +1,18 @@
+/**
+ * @module agregarTeraComp
+ * @description Componente para agregar una nueva tarea.
+ * Este componente maneja la lógica para enviar una nueva tarea al servidor y actualizar los datos correspondientes.
+ * @returns {JSX.Element} Elemento JSX que contiene el formulario para agregar una nueva tarea.
+ * @author Francisco Javier Luque Pardo.
+ * @date 2024-30-03
+ */
+
 import { useRef, useState } from 'react'
 import '../../datos/panelesFlotantes.scss' // Asegúrate de crear este archivo CSS para el estilo
 import * as datos from '../../datos/datosGlobales'
+import axiosInstance from '../../datos/apis/axiosInstance'
+import { useEstado } from '../../datos/EstadoContext'
+import loadTareaData from '../../datos/apis/get/loadTareaData'
 import $ from 'jquery'
 
 function AgregarTarea (): JSX.Element {
@@ -10,7 +22,7 @@ function AgregarTarea (): JSX.Element {
   const [tipoTarea, setTipoTarea] = useState('')
   const [fechaPrevista, setFechaPrevista] = useState('')
   const dialogRef = useRef<HTMLDialogElement>(null)
-
+  const { incrementTriggerTareas } = useEstado()
   function eliminarPrimerObjetoSelect (): void {
     const selectElement = document.getElementById('selectPaciente') as HTMLSelectElement
     if (selectElement.options.length > 1) {
@@ -18,12 +30,13 @@ function AgregarTarea (): JSX.Element {
       const secondOption = selectElement.options[1]
 
       // Compara el valor de la segunda opción con el valor esperado
-      console.log(secondOption.value)
+
       if (secondOption.value === 'defaul') {
         selectElement.remove(0)
       }
     }
   }
+
   const closeDialog = (): void => {
     eliminarPrimerObjetoSelect()
     if (dialogRef.current != null) {
@@ -31,20 +44,17 @@ function AgregarTarea (): JSX.Element {
     }
   }
 
-  const submit = (event: React.FormEvent): void => {
+  const submit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault()
-    
+
     const selectElement = document.getElementById('selectPaciente') as HTMLSelectElement
     const firstOptionValue = selectElement.options[0].value
-    console.log(firstOptionValue)
-    console.log('paciente', paciente)
+
     if (paciente === '') {
       paciente = firstOptionValue
     }
-   
 
     const selectedPaciente = pacientes.find(p => {
-      console.log('Comparando con:', p.id.trim().toLowerCase())
       return p.id.trim().toLowerCase() === paciente.trim().toLowerCase()
     })
 
@@ -60,28 +70,36 @@ function AgregarTarea (): JSX.Element {
     const fields = [
       '#selectPaciente',
       '#tipo-tarea',
-      '#fecha-prevista',
-
+      '#fecha-prevista'
 
     ]
 
     let valid = true
     fields.forEach((field) => {
-      console.log($(field).val(), field, $(field).val() === null)
       if ($(field).val() === '' || $(field).val() === null) {
         valid = false
 
         $(field).css('border', '1px solid red')
       } else {
-    
         $(field).css('border', '')
-   
       }
     })
-    
-    console.log('Formulario enviado:', formData)
-    closeDialog()
-    // Aquí puedes manejar el envío del formulario
+    if (valid) {
+      const transformedData = {
+        usuario: {
+          id: formData.pacienteId
+        },
+        fecha: formData.fechaPrevista,
+        tipoTarea: {
+          id: formData.tareaId
+        }
+      }
+
+      await axiosInstance.post('/tareas/save', transformedData)
+      await loadTareaData()
+      incrementTriggerTareas()
+      closeDialog()
+    }
   }
 
   return (
@@ -107,7 +125,7 @@ function AgregarTarea (): JSX.Element {
                 ))}
               </select>
             </div>
-            
+
             <div className='form-group form-group-individual '>
               <label htmlFor='tipo-tarea'>Tipo de tarea</label>
               <select

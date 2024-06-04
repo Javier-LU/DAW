@@ -30,5 +30,27 @@ public interface EquipoRepository extends JpaRepository <ESAD_equipo, Integer>  
     @Query("UPDATE ESAD_equipo e SET e.administrativo = null WHERE e.administrativo.id = ?1")
     void unsetAdministrativoInEquipo(Integer id);
 
+    @Query(value = "SELECT 'TotalProfesionales' AS categoria, COUNT(*) AS cantidad FROM ( " +
+            "    SELECT medico_id AS profesional_id FROM ESAD_equipo WHERE medico_id IS NOT NULL " +
+            "    UNION ALL " +
+            "    SELECT enfermero_id AS profesional_id FROM ESAD_equipo WHERE enfermero_id IS NOT NULL " +
+            "    UNION ALL " +
+            "    SELECT auxiliar_id AS profesional_id FROM ESAD_equipo WHERE auxiliar_id IS NOT NULL " +
+            "    UNION ALL " +
+            "    SELECT administrativo_id AS profesional_id FROM ESAD_equipo WHERE administrativo_id IS NOT NULL " +
+            ") AS profesionales " +
+            "UNION ALL " +
+            "SELECT 'Total' AS categoria, COUNT(*) AS cantidad FROM ESAD_equipo " +
+            "UNION ALL " +
+            "SELECT 'Médicos' AS categoria, COUNT(DISTINCT medico_id) AS cantidad FROM ESAD_equipo WHERE medico_id IS NOT NULL " +
+            "UNION ALL " +
+            "SELECT 'Enfermeros' AS categoria, COUNT(DISTINCT enfermero_id) AS cantidad FROM ESAD_equipo WHERE enfermero_id IS NOT NULL " +
+            "UNION ALL " +
+            "SELECT 'AuxiliaresMédicos' AS categoria, COUNT(DISTINCT auxiliar_id) AS cantidad FROM ESAD_equipo WHERE auxiliar_id IS NOT NULL " +
+            "UNION ALL " +
+            "SELECT 'Administrativos' AS categoria, COUNT(DISTINCT administrativo_id) AS cantidad FROM ESAD_equipo WHERE administrativo_id IS NOT NULL",
+            nativeQuery = true
+    )
+    List<Object[]> countByCategoria();
 
 }

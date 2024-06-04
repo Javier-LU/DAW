@@ -115,17 +115,7 @@ public class ProfesionalesService {
         profesionalesRepository.deleteById(id);
         return "Centro de Salud eliminado: " + id; }
 
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
 

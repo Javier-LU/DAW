@@ -1,6 +1,16 @@
+/**
+ * @module main
+ * @description Componente principal de la aplicación que maneja las diferentes secciones y la navegación.
+ * @param {Object} props - Propiedades para el componente.
+ * @param {string} props.condition - Condición que determina qué sección mostrar.
+ * @returns {JSX.Element} Elemento JSX que representa la sección principal de la aplicación.
+ * @author Francisco Javier Luque Pardo.
+ * @date 2024-30-03
+ */
+
 import React, { useEffect, useState } from 'react'
 import HeaderMain from './header/mainHeader'
-import Cuerpo from './cuerposBox/pacientes'
+import Pacientes from './cuerposBox/pacientes'
 
 import PanelPaciente from '../main/paneles/agregarPacienteComp'
 import PanelTarea from '../main/paneles/agregarTeraComp'
@@ -10,7 +20,7 @@ import PanelCS from '../main/paneles/agregarCSComp'
 
 import Botones from './partes/botonesConf'
 import Equipo from './cuerposBox/equipos'
-import CS from './cuerposBox/centrosSalud'
+import Cs from './cuerposBox/centrosSalud'
 import Profesionales from './cuerposBox/profesionales'
 import Tareas from './cuerposBox/tareas'
 
@@ -21,6 +31,8 @@ import GraficaPacientes from '../graficos/numeroPacientes'
 import GraficaEnfer from '../graficos/numeroEnfermedades'
 import GraficaCS from '../graficos/numeroPacientesPorCentro'
 import GraficaEdad from '../graficos/numeroEdad'
+
+import { EstadoProvider, useEstado } from '../datos/EstadoContext'
 
 interface MainProps {
   condition: string
@@ -59,9 +71,11 @@ const Main: React.FC<MainProps> = ({ condition }): JSX.Element => {
     }
   }, [windowWidth])
 
+  const { updateTrigger, updateTriggerTareas, confiVar } = useEstado()
+
   if (condition === 'Tareas') {
     return (
-      <main id="mainTareas">
+      <main id='mainTareas'>
 
         <HeaderMain
           principal='Tareas'
@@ -70,14 +84,13 @@ const Main: React.FC<MainProps> = ({ condition }): JSX.Element => {
           mostrarElementos
           mostrarElementosPapeleraLupa={false}
         />
-        <Tareas />
-
-
+        <Tareas key={updateTriggerTareas} />
+        <PanelTarea />
       </main>
     )
   } else if (condition === 'Pacientes') {
     return (
-      <main id="mainPacientes">
+      <main id='mainPacientes'>
         <HeaderMain
           principal='Pacientes'
           boton='Nuevo paciente'
@@ -85,14 +98,14 @@ const Main: React.FC<MainProps> = ({ condition }): JSX.Element => {
           mostrarElementos
           mostrarElementosPapeleraLupa
         />
-        <Cuerpo />
+        <Pacientes key={updateTrigger} />
         <PanelPaciente />
         <PanelTarea />
       </main>
     )
   } else if (condition === 'Estadisticas') {
     return (
-      <main id="mainEstadisticas">
+      <main id='mainEstadisticas'>
         <HeaderMain
           principal='Estadísticas'
           boton='Nueva Tarea'
@@ -112,29 +125,30 @@ const Main: React.FC<MainProps> = ({ condition }): JSX.Element => {
     )
   } else {
     return (
-      <main id="mainConfiguracion">
-        <div id="one">
+      <main id='mainConfiguracion'>
+        <div id='one'>
           <HeaderMain
             principal='ESAD Plantilla'
             boton='Nueva Tarea'
             navItems={['']}
             mostrarElementos={false}
+            mostrarElementosPapeleraLupa={false}
           />
         </div>
         <div id='cero'>
-          <div id="two">
+          <div id='two'>
             <CabeceraConf condicion='Registros de profesionales' />
-            <Profesionales />
+            <Profesionales key={confiVar} />
             <Botones condicion='agregarProfesional' />
           </div>
-          <div id="three">
+          <div id='three'>
             <CabeceraConf condicion='Registros de equipos' />
-            <Equipo />
+            <Equipo key={confiVar} />
             <Botones condicion='agregarEquipo' />
           </div>
-          <div id="four">
+          <div id='four'>
             <CabeceraConf condicion='Registros de Centros de Salud' />
-            <CS />
+            <Cs key={confiVar} />
             <Botones condicion='agregarCS' />
           </div>
         </div>
@@ -147,4 +161,10 @@ const Main: React.FC<MainProps> = ({ condition }): JSX.Element => {
   }
 }
 
-export default Main
+const MainWithProvider: React.FC<MainProps> = (props) => (
+  <EstadoProvider>
+    <Main {...props} />
+  </EstadoProvider>
+)
+
+export default MainWithProvider

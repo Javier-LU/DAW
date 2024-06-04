@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+
 @Entity
 @Table(name = "ESAD_permisos")
 public class ESAD_profesionalesPermissionEntity {
@@ -22,6 +22,7 @@ public class ESAD_profesionalesPermissionEntity {
 
 
    // @Column(unique = true, nullable = false, updatable = false)
+
     @Enumerated(EnumType.STRING)
     @Column(name = "listPermissions")
     private EPermission listPermissions;

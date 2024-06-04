@@ -67,17 +67,21 @@ $resta23: calc(100% - 20px);
 
 .menuBuscarEliminar{
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
+
+    width: 200px;
 }
 
 .lupaContainer{
     position: relative;
-    width: 140px;    
+    width: 140px; 
+    margin-right: 50px;
 }
 
 #buscar{
     height: 25px;
+   
 }
 
 #lupa{

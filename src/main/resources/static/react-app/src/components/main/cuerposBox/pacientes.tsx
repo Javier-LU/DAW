@@ -1,7 +1,17 @@
+/**
+ * @module agregarCSComp
+ * @description Componente para mostrar la tabla de pacientes.
+ * Este componente muestra una tabla de profesionales con sus datos, incluyendo nombre, apellidos, DNI...
+ * Permite editar los datos de los profesionales, seleccionar una pacientes y ordenar la tabla por columnas. *
+ * @returns {JSX.Element} Elemento JSX que representa el contador para profesionales.
+ * @author Francisco Javier Luque Pardo.
+ * @date 2024-30-03
+ */
 
 import '../css/cuerpo.scss'
 import { useTableData } from '../../datos/funcionesGlobales'
 import * as datos from '../../datos/datosGlobales'
+import React from 'react'
 
 const Counter: React.FC = () => {
   const {

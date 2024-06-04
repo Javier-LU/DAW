@@ -1,3 +1,12 @@
+/**
+ * @module agregarCSComp
+ * @description Componente funcional que representa el pie de página de la aplicación.
+ * @param {object} props - Propiedades del componente.
+ * @param {string} props.activeButton - El botón activo actualmente.
+ * @returns {JSX.Element} Elemento JSX que representa el pie de página.
+ * @author Francisco Javier Luque Pardo.
+ * @date 2024-30-03
+ */
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './footer.scss'

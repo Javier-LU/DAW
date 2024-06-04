@@ -72,6 +72,12 @@ public class UsuarioController {
         return service.getBuscarTresValores(nombre, primerApellido, segundoApellido);
     }
 
+    // Buscar por historico
+    @GetMapping("/historico")
+    public List<ESAD_usuarios> buscarPorHistorico(@RequestParam Boolean historico) {
+        return service.getHistorico(historico);
+    }
+
     // --------------------------------------------------------------------
 
     // Crear una usuario por ID

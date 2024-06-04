@@ -62,15 +62,15 @@ public class DataInitializer {
 
             //-----------------------------------------------------
             // Inicialización esad_profesionales
-            String[] columnNamesProfesionales = {"account_no_expired", "account_no_locked", "credential_no_expired", "is_enabled", "cualificacion", "dni", "email", "nombre", "password", "primer_apellido", "segundo_apellido"};
+            String[] columnNamesProfesionales = {"account_no_expired", "account_no_locked", "credential_no_expired", "is_enabled", "cualificacion", "dni", "email", "nombre", "password", "primer_apellido", "segundo_apellido", "telefono"};
             String[][] dataProfesionales = {
-                    {"1", "1", "1", "1", "'3'", "'12345678Z'", "'profesional@example.com'", "'Luisa'", "'$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve'", "'Sánchez'", "'Rodríguez'"},
+                    {"1", "1", "1", "1", "'3'", "'12345678Z'", "'profesional@example.com'", "'Luisa'", "'$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve'", "'Sánchez'", "'Rodríguez'", "12345678"},
 
-                    {"1", "1", "1", "1", "'1'", "'87654321X'", "'tecnicosistemas@example.com'", "'Roberto'", "'$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve'", "'Jiménez'", "'Morales'"},
-                    {"1", "1", "1", "1", "'1'", "'23456789Y'", "'ingindustrial@example.net'", "'Marta'", "'$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve'", "'Luna'", "'Solís'"},
-                    {"1", "1", "1", "1", "'2'", "'34567890F'", "'disgrafico@example.org'", "'Carlos'", "'$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve'", "'Navarro'", "'Prieto'"},
-                    {"1", "1", "1", "1", "'2'", "'45678901G'", "'analistadatos@example.com'", "'Julia'", "'$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve'", "'Vega'", "'Mendoza'"},
-                    {"1", "1", "1", "1", "'4'", "'56789012H'", "'marketingspec@example.com'", "'Fernando'", "'$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve'", "'Rojas'", "'Campos'"}
+                    {"1", "1", "1", "1", "'1'", "'87654321X'", "'tecnicosistemas@example.com'", "'Roberto'", "'$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve'", "'Jiménez'", "'Morales'", "12345678"},
+                    {"1", "1", "1", "1", "'1'", "'23456789Y'", "'ingindustrial@example.net'", "'Marta'", "'$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve'", "'Luna'", "'Solís'", "12345678"},
+                    {"1", "1", "1", "1", "'2'", "'34567890F'", "'disgrafico@example.org'", "'Carlos'", "'$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve'", "'Navarro'", "'Prieto'", "12345678"},
+                    {"1", "1", "1", "1", "'2'", "'45678901G'", "'analistadatos@example.com'", "'Julia'", "'$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve'", "'Vega'", "'Mendoza'", "12345678"},
+                    {"1", "1", "1", "1", "'4'", "'56789012H'", "'marketingspec@example.com'", "'Fernando'", "'$2a$10$.btaTOC/PwcWbgTKvriyZ.Lk1E2unBU9VBEC7T59w2DLq1ugehCve'", "'Rojas'", "'Campos'", "12345678"}
 
 
             };
@@ -139,11 +139,11 @@ public class DataInitializer {
             //-----------------------------------------------------
             // Inicialización esad_equipo
 
-            String[] columnEquipo2 = {"equipo" , "centro", "medico_id", "enfermero_id", "auxiliar_id","administrativo_id"};
+            String[] columnEquipo2 = {"equipo" , "centro_id", "medico_id", "enfermero_id", "auxiliar_id","administrativo_id"};
             String[][] dataEquipo2 = {
 
-                    {"Roberto", "Rosales", "3", "5", "2", "7"},
-                    {"Marta", "Rosales", "4", "6", "2", "7"}
+                    {"Roberto", "1", "3", "5", "2", "7"},
+                    {"Marta", "1", "4", "6", "2", "7"}
             };
 
             for (String[] rowData : dataEquipo2) {

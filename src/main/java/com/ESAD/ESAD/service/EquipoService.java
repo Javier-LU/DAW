@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 @Service
 public class EquipoService {
@@ -67,6 +69,20 @@ public class EquipoService {
             return repository.save(existingCS);
         }
         return null;
+    }
+
+    // Contar registros
+    public Map<String, Long> getEquipoCounts() {
+        List<Object[]> results = repository.countByCategoria();
+        Map<String, Long> counts = new HashMap<>();
+
+        for (Object[] result : results) {
+            String categoria = (String) result[0];
+            Long cantidad = ((Number) result[1]).longValue();
+            counts.put(categoria, cantidad);
+        }
+
+        return counts;
     }
 
 

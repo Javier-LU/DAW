@@ -1,18 +1,23 @@
+/**
+ * @module loginComp
+ * @description Componente de formulario de inicio de sesión.
+ * Este componente maneja la lógica para enviar credenciales de inicio de sesión al servidor y redirigir al usuario según la respuesta.
+ * @returns {JSX.Element} Elemento JSX que contiene el formulario de inicio de sesión.
+ * @author Francisco Javier Luque Pardo.
+ * @date 2024-30-03
+ */
 
-import { useRef } from 'react'
 import '../../datos/panelesFlotantes.scss'
 import $ from 'jquery'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function LoginForm (): JSX.Element {
-  const dialogRef = useRef<HTMLDialogElement>(null)
-
-  const closeDialog = (): void => {
-    if (dialogRef.current != null) {
-      dialogRef.current.close()
-    }
+  const navigate = useNavigate()
+  const navigateTo = (path: string): void => {
+    navigate(path)
   }
-
-  const submit = (event: React.FormEvent): void => {
+  const submit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault()
 
     const fields = [
@@ -32,14 +37,25 @@ function LoginForm (): JSX.Element {
 
     if (valid) {
       const dataToSend = {
-        name: $('#name').val(),
+        username: $('#name').val(),
         password: $('#password').val()
       }
-      console.log('Formulario enviado:', dataToSend)
-      // Aquí puedes añadir la lógica para manejar el envío de datos
 
-      closeDialog()
+      try {
+        const response = await axios.post('http://localhost:8070/auth/log-in', dataToSend)
+
+        localStorage.setItem('auth_token', response.data.jwt)
+        navigateTo('/pacientes')
+      } catch (error) {
+        console.error('Error al enviar el formulario:', error)
+        // Aquí puedes manejar errores, como mostrar un mensaje al usuario
+      }
     }
+  }
+  const handleSubmit = (event: React.FormEvent): void => {
+    submit(event).catch(error => {
+      console.error('Error en el submit:', error)
+    })
   }
 
   return (
@@ -47,7 +63,7 @@ function LoginForm (): JSX.Element {
       <div className='login  login-shadow'>
         <h2>Bienvenido a ESAD</h2>
         <p>Introduce tu nombre y contraseña</p>
-        <form onSubmit={submit}>
+        <form onSubmit={handleSubmit}>
           <div className='form-group form-group-duo-personalizado-login'>
             <label htmlFor='name'>Nombre</label>
             <input type='text' id='name' name='name' placeholder='--------' />

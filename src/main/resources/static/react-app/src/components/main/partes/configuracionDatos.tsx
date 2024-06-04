@@ -1,3 +1,13 @@
+/**
+ * @module configuracionDatos
+ * @description Componente que muestra los datos correspondientes a la condición proporcionada.
+ * @param {Object} props - Propiedades para el componente.
+ * @param {string} props.condicion - Condición que determina qué datos mostrar.
+ * @returns {JSX.Element} Elemento JSX que muestra los datos según la condición.
+ * @author Francisco Javier Luque Pardo.
+ * @date 2024-30-03
+ */
+
 import React, { useState } from 'react'
 import * as datos from '../../datos/datosGlobales'
 import '../css/configuracion.scss'
@@ -17,7 +27,11 @@ const DatosConf: React.FC<DatosConfProps> = ({ condicion }) => {
         <table>
           <tbody>
             <tr>
-              <td>Total</td>
+              <td>Equipos totales</td>
+              <td>{registro.totalEquipos}</td>
+            </tr>
+            <tr>
+              <td>Porfesionales en activo</td>
               <td>{registro.totalProfesionales}</td>
             </tr>
             <tr>
@@ -44,14 +58,6 @@ const DatosConf: React.FC<DatosConfProps> = ({ condicion }) => {
     return (
       <div className='datos'>
         <h3>{condicion}</h3>
-        <table>
-          <tbody>
-            <tr>
-              <td>Total</td>
-              <td>{registro.TotalEquipo}</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     )
   } else {

@@ -1,28 +1,36 @@
+/**
+ * @module agregarCSComp
+ * @description   Este archivo contiene definiciones de datos y funciones para gestionar datos iniciales y actualizarlos en diferentes secciones de la aplicación.
+ * Define interfaces para estructurar los datos de pacientes, tareas, equipos, enfermedades, centros de salud, salidas, valores fijos, profesionales y profesiones.
+ * También proporciona funciones para actualizar estos datos iniciales. Cada sección tiene una interfaz para los datos y una función para actualizar los mismos.
+ * @author Francisco Javier Luque Pardo.
+ * @date 2024-30-03
+ */
+
+// --------------------------------------------
 // Datos generales para Pacientes
 export interface RowData {
-  id: string
-  historico: string
-  equipo: string
-  tarea: number
-  fechaIngreso: string
-  nombre: string
-  primerApellido: string
-  segundoApellido: string
-  edad: number
-  dni: string
-  nacimiento: string
-  residencia: string
-  direccion: string
-  telefono: number
-  centroSalud: string
-  enfermedad: string
-  salida: string
-  fechaSalida: string
-  lugarSalida: string
-
+  id?: string | null
+  historico?: string | null
+  equipo?: string | null
+  tarea?: number | null
+  fechaIngreso?: string | null
+  nombre?: string | null
+  primerApellido?: string | null
+  segundoApellido?: string | null
+  edad?: number | null
+  dni?: string | null
+  nacimiento?: string | null
+  residencia?: string | null
+  direccion?: string | null
+  telefono?: number | null
+  centroSalud?: string | null
+  enfermedad?: string | null
+  salida?: string | null
+  fechaSalida?: string | null
+  lugarSalida?: string | null
 }
-
-export const initialData: RowData[] = [
+export let initialData: RowData[] = [
   {
     id: 'afdgretert',
     historico: 'Active',
@@ -51,7 +59,7 @@ export const initialData: RowData[] = [
     equipo: 'Elena',
     tarea: 4,
     fechaIngreso: '10/11/2020',
-    nombre: 'Maria',
+    nombre: 'Elena',
     primerApellido: 'Lopez',
     segundoApellido: 'Martinez',
     edad: 78,
@@ -135,92 +143,131 @@ export const initialData: RowData[] = [
   }
   // Repetir el objeto para cada fila...
 ]
-
-export interface RowDataTareas {
-  id: string
-  persona: string
-  tarea: string
-  fecha: string
+export const updateData = (newData: RowData[]): void => {
+  initialData = newData
 }
 
-export const initialDataTareas: RowDataTareas[] = [
+// --------------------------------------------
+// Datos generales para Tareas
+export interface RowDataTareas {
+  id: string
+  nombre: Persona
+  tarea: string
+  fecha: string
+  equipo: string
+  nacimiento: string
+  direccion: string
+  centroSalud: string
+  telefono: string
+  idUsuario: string
+}
+export let initialDataTareas: RowDataTareas[] = [
   {
     id: 'uiyudsfsdyt',
-    persona:'uiyuyt',
+    nombre: { nombre: 'cosa', primerApellido: 'nose', segundoApellido: 'si', id: 'asdafas' },
     tarea: 'LLamar',
-    fecha: '09/09/1940'
-
+    fecha: '09/09/1940',
+    equipo: 'roberto',
+    nacimiento: '09/09/1940',
+    direccion: 'no se',
+    centroSalud: 'Brunete',
+    telefono: '9175683241',
+    idUsuario: 'dsadasdasd'
 
   },
   {
     id: 'uiyuwerweyt',
-    persona:'afdgretert',
+    nombre: { nombre: 'cosa', primerApellido: 'nose', segundoApellido: 'si', id: 'asdafas' },
     tarea: 'Historia',
-    fecha:'09/09/1940'
+    fecha: '09/09/1940',
+    equipo: 'roberto',
+    nacimiento: '09/09/1940',
+    direccion: 'no se',
+    centroSalud: 'Brunete',
+    telefono: '9175683241',
+    idUsuario: 'dsadaerwesdasd'
 
   },
   {
     id: 'uiyutreyryt',
-    persona:'uiyuyt',
+    nombre: { nombre: 'cosa', primerApellido: 'nose', segundoApellido: 'si', id: 'asdafas' },
     tarea: 'Visita',
-    fecha:'09/09/1940'
+    fecha: '09/09/1940',
+    equipo: 'roberto',
+    nacimiento: '09/09/1940',
+    direccion: 'no se',
+    centroSalud: 'Brunete',
+    telefono: '9175683241',
+    idUsuario: 'dsadatrygfsdasd'
 
   }
 
 ]
+export const updateDataTareas = (newData: RowDataTareas[]): void => {
+  initialDataTareas = newData
+}
 
-// Datos generales para equipo
+// --------------------------------------------
+// Datos generales para Equipo
+export interface Persona {
+  nombre: string
+  primerApellido: string
+  segundoApellido: string
+  id: string
+}
 export interface RowDataEquipo {
   id: string
   equipo: string
   centro: string
-  medico: string
-  enfermera: string
-  auxiliar: string
-  administrativo: string
+  medico: Persona
+  enfermera: Persona
+  auxiliar: Persona
+  administrativo: Persona
 }
-
-export const initialDataEquipo: RowDataEquipo[] = [
+export let initialDataEquipo: RowDataEquipo[] = [
   {
     id: 'asdafas',
     equipo: 'Elena',
     centro: 'Centro de Salud Norte',
-    medico: 'Dr. Juan Pérez',
-    enfermera: 'Ana López',
-    auxiliar: 'Carlos Fernández',
-    administrativo: 'María García'
+    medico: { nombre: 'Juan', primerApellido: 'Pérez', segundoApellido: '', id: 'asdafas' },
+    enfermera: { nombre: 'Ana', primerApellido: 'López', segundoApellido: '', id: 'asdafas' },
+    auxiliar: { nombre: 'Carlos', primerApellido: 'Fernández', segundoApellido: '', id: 'asdafas' },
+    administrativo: { nombre: 'María', primerApellido: 'García', segundoApellido: '', id: 'asdafas' }
 
   },
   {
     id: 'a534sdafas',
     equipo: 'Robert',
     centro: 'Centro de Salud Este',
-    medico: 'Dra. Carla Fernández',
-    enfermera: 'Elena García',
-    auxiliar: 'Luis Rodríguez',
-    administrativo: 'Marta González'
+    medico: { nombre: 'Juan', primerApellido: 'Pérez', segundoApellido: '', id: 'asdafas' },
+    enfermera: { nombre: 'Ana', primerApellido: 'López', segundoApellido: '', id: 'asdafas' },
+    auxiliar: { nombre: 'Carlos', primerApellido: 'Fernández', segundoApellido: '', id: 'asdafas' },
+    administrativo: { nombre: 'María', primerApellido: 'García', segundoApellido: '', id: 'asdafas' }
 
   },
   {
     id: 'as647dafas',
     equipo: 'Paco',
     centro: 'Centro de Salud Sur',
-    medico: 'Dr. Pedro Ramírez',
-    enfermera: 'Lucía Martín',
-    auxiliar: 'Laura Méndez',
-    administrativo: 'Jose Martínez'
+    medico: { nombre: 'Juan', primerApellido: 'Pérez', segundoApellido: '', id: 'asdafas' },
+    enfermera: { nombre: 'Ana', primerApellido: 'López', segundoApellido: '', id: 'asdafas' },
+    auxiliar: { nombre: 'Carlos', primerApellido: 'Fernández', segundoApellido: '', id: 'asdafas' },
+    administrativo: { nombre: 'María', primerApellido: 'García', segundoApellido: '', id: 'asdafas' }
 
   }
 
 ]
+export const updateDataEquipo = (newData: RowDataEquipo[]): void => {
+  initialDataEquipo = newData
+}
 
-// Datos generales para enfermedad
+// --------------------------------------------
+// Datos generales para Enfermedad
 export interface RowDataEnfermedad {
   id: string
   enfermedad: string
 }
-
-export const initialDataEnfermedad: RowDataEnfermedad[] = [
+export let initialDataEnfermedad: RowDataEnfermedad[] = [
   {
     id: 'asdhhafas',
     enfermedad: 'Gripe'
@@ -238,7 +285,11 @@ export const initialDataEnfermedad: RowDataEnfermedad[] = [
   }
 
 ]
+export const updateDataEnfermedad = (newData: RowDataEnfermedad[]): void => {
+  initialDataEnfermedad = newData
+}
 
+// --------------------------------------------
 // Datos generales para CS
 export interface RowDataCS {
   id: string
@@ -246,8 +297,7 @@ export interface RowDataCS {
   telefono: number
   calle: string
 }
-
-export const initialDataCS: RowDataCS[] = [
+export let initialDataCS: RowDataCS[] = [
   {
     id: 'asdafa56es',
     cs: 'Alameda',
@@ -271,14 +321,17 @@ export const initialDataCS: RowDataCS[] = [
   }
 
 ]
+export const updateDataCS = (newData: RowDataCS[]): void => {
+  initialDataCS = newData
+}
 
-// Datos generales para CS
+// --------------------------------------------
+// Datos generales para Salida
 export interface RowDataSa {
   id: string
   salida: string
 }
-
-export const initialDataSa: RowDataSa[] = [
+export let initialDataSa: RowDataSa[] = [
   {
     id: 'asday56uhfas',
     salida: 'exitus'
@@ -301,12 +354,16 @@ export const initialDataSa: RowDataSa[] = [
   }
 
 ]
+export const updateDataSa = (newData: RowDataSa[]): void => {
+  initialDataSa = newData
+}
 
+// --------------------------------------------
+// Datos generales para Valores Fijos
 export interface RowDataVF {
   valoresFijos: string
 }
-
-export const initialDataVF: RowDataVF[] = [
+export let initialDataVF: RowDataVF[] = [
 
   {
     valoresFijos: 'Activos'
@@ -318,13 +375,17 @@ export const initialDataVF: RowDataVF[] = [
   }
 
 ]
+export const updateDataVF = (newData: RowDataVF[]): void => {
+  initialDataVF = newData
+}
 
+// --------------------------------------------
+// Datos generales para Tareas específicas
 export interface RowDataT {
   id: string
   tareas: string
 }
-
-export const initialDataT: RowDataT[] = [
+export let initialDataT: RowDataT[] = [
   {
     id: 'asdagdfgfas',
     tareas: 'LLamar'
@@ -342,7 +403,12 @@ export const initialDataT: RowDataT[] = [
   }
 
 ]
+export const updateDataT = (newData: RowDataT[]): void => {
+  initialDataT = newData
+}
 
+// --------------------------------------------
+// Datos generales para Profesionales
 export interface RowDataPro {
 
   id: string
@@ -355,8 +421,7 @@ export interface RowDataPro {
   telefono: string
   password: string
 }
-
-export const initialDataPro: RowDataPro[] = [
+export let initialDataPro: RowDataPro[] = [
   {
     id: '1',
     nombre: 'Juan',
@@ -457,14 +522,18 @@ export const initialDataPro: RowDataPro[] = [
     password: 'password6'
   }
 ]
+export const updateDataPro = (newData: RowDataPro[]): void => {
+  initialDataPro = newData
+}
 
+// --------------------------------------------
+// Datos generales para Profesiones
 export interface RowDataProfe {
 
   id: string
   profesion: string
 }
-
-export const initialDataProfe: RowDataProfe[] = [
+export let initialDataProfe: RowDataProfe[] = [
   {
     id: 'fs6dfe',
     profesion: 'medico'
@@ -486,11 +555,17 @@ export const initialDataProfe: RowDataProfe[] = [
     profesion: 'auxiliar'
   }
 ]
+export const updateDataProfe = (newData: RowDataProfe[]): void => {
+  initialDataProfe = newData
+}
 
-// Datossss
-
+// -------------------------------------------------------------------------
+// Gráficas
+// -------------------------------------------------------------------------
+// --------------------------------------------
+// Datos necesariós para la pantalla de configuración
 export interface RowDatosConf {
-
+  totalEquipos: number
   totalProfesionales: number
   TotalEquipo: number
   Medicos: number
@@ -498,99 +573,89 @@ export interface RowDatosConf {
   Auxiliar: number
   Administrativo: number
 }
-
-export const initialDatosConf: RowDatosConf[] = [
+export let initialDatosConf: RowDatosConf[] = [
   {
-
+    totalEquipos: 2,
     totalProfesionales: 100,
     TotalEquipo: 3,
     Medicos: 40,
     Enfermeras: 30,
     Auxiliar: 20,
     Administrativo: 10
-
   }
 
 ]
-
-
-export interface RowDatosPaMe {
-
-  nombre: string
-  total: number
-
+export const updateDatosConf = (newDatos: RowDatosConf[]): void => {
+  initialDatosConf = newDatos
 }
-
-export const initialDatosPaMe: RowDatosPaMe[] = [
+// --------------------------------------------
+// Datos de las graficas de los equipos
+export interface RowDatosPaMe {
+  nombre: string
+  valor: number
+}
+export let initialDatosPaMe: RowDatosPaMe[] = [
   {
-
     nombre: 'elena',
-    total: 40
-
+    valor: 40
   },
   {
-
     nombre: 'Roberto',
-    total: 20
-
+    valor: 20
   },
   {
-
     nombre: 'Paco',
-    total: 25
-
+    valor: 25
   }
-
 ]
-
+export const updateDatosPaMe = (newDatos: RowDatosPaMe[]): void => {
+  initialDatosPaMe = newDatos
+}
+// --------------------------------------------
+// Datos de las graficas de rango de edad
 export interface RowDatosEdad {
-
   valor: number
   nombre: string
-
-
 }
-
-export const initialDatosEdad: RowDatosEdad[] = [
+export let initialDatosEdad: RowDatosEdad[] = [
   {
 
     valor: 50,
-    nombre: ">90"
+    nombre: '>90'
 
   },
   {
 
-   
     valor: 30,
-    nombre: ">75"
+    nombre: '>75'
 
   },
   {
-
 
     valor: 12,
-    nombre: ">50"
+    nombre: '>50'
 
   },
   {
 
-
     valor: 2,
-    nombre: "<50"
+    nombre: '<50'
 
   }
- 
 
 ]
-
+export const updateDatosEdad = (newDatos: RowDatosEdad[]): void => {
+  initialDatosEdad = newDatos
+}
+// --------------------------------------------
+// Datos de las graficas de enfermedades
 export interface RowDatosEnfe {
 
   nombre: string
   total: number
 
 }
-
-export const initialDatosEnfe: RowDatosEnfe[] = [
+export let initialDatosEnfe: RowDatosEnfe[] = [
   {
 
     nombre: 'covid',
@@ -614,41 +679,47 @@ export const initialDatosEnfe: RowDatosEnfe[] = [
     nombre: 'Nino',
     total: 55
 
-  },
+  }
 
 ]
-
+export const updateDatosEnfe = (newDatos: RowDatosEnfe[]): void => {
+  initialDatosEnfe = newDatos
+}
+// --------------------------------------------
+// Datos de las graficas de CS
 export interface RowDatosNCS {
 
   nombre: string
-  total: number
+  valor: number
 
 }
-
-export const initialDatosNCS: RowDatosNCS[] = [
+export let initialDatosNCS: RowDatosNCS[] = [
   {
 
     nombre: 'A',
-    total: 40
+    valor: 40
 
   },
   {
 
     nombre: 'B',
-    total: 20
+    valor: 20
 
   },
   {
 
     nombre: 'C',
-    total: 25
+    valor: 25
 
   },
   {
 
     nombre: 'D',
-    total: 55
+    valor: 55
 
-  },
+  }
 
 ]
+export const updateDatosNCS = (newDatos: RowDatosNCS[]): void => {
+  initialDatosNCS = newDatos
+}

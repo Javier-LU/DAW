@@ -1,6 +1,7 @@
 /**
- * @module Favoritos
- * @description Definición la pagina de favoritos.
+ * @module tareas
+ * @description Componente que representa el Tarea de la aplicación.
+ * @returns {JSX.Element} Elemento JSX que contiene la estructura del Tarea.
  * @author Francisco Javier Luque Pardo.
  * @date 2024-30-03
  */
@@ -9,7 +10,7 @@ import Header from '../components/header/header'
 import Footer from '../components/footer/footer'
 import Main from '../components/main/main'
 
-const Simulador: React.FC = (): JSX.Element => {
+const Tarea: React.FC = (): JSX.Element => {
   return (
     <div id='bodyDiv'>
       <Header activeButton='Tareas' />
@@ -19,4 +20,4 @@ const Simulador: React.FC = (): JSX.Element => {
   )
 }
 
-export default Simulador
+export default Tarea

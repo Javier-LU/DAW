@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/equipo")
@@ -40,6 +41,12 @@ public class EquipoController {
     public ESAD_equipo updateEnfermedad(@PathVariable Integer id,@RequestBody ESAD_equipo equipo) {
         equipo.setId(id);
         return service.updateEquipo(equipo);
+    }
+
+    // Obtener el conteo de equipos por categoría
+    @GetMapping("/counts")
+    public Map<String, Long> getEquipoCounts() {
+        return service.getEquipoCounts();
     }
 
 }

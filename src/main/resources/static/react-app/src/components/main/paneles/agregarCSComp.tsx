@@ -1,50 +1,64 @@
-import { useRef, useEffect } from 'react'
+/**
+ * @module agregarCSComp
+ * @description Componente para agregar un nuevo Centro de Salud.
+ * Este componente maneja la lógica para enviar los datos del nuevo Centro de Salud al servidor y actualizar los datos correspondientes.
+ * @returns {JSX.Element} Elemento JSX que contiene el formulario para agregar un nuevo Centro de Salud.
+ * @author Francisco Javier Luque Pardo.
+ * @date 2024-30-03
+ */
+
+import { useRef } from 'react'
 import '../../datos/panelesFlotantes.scss'
 import $ from 'jquery'
+import { useEstado } from '../../datos/EstadoContext'
+import LoadCS from '../../datos/apis/get/loadCS'
+import axiosInstance from '../../datos/apis/axiosInstance'
 
 function AgregarTarea (): JSX.Element {
+  const { incrementConfiVar } = useEstado()
   const dialogRef = useRef<HTMLDialogElement>(null)
-
   const closeDialog = (): void => {
     if (dialogRef.current != null) {
       dialogRef.current.close()
     }
   }
-/*    useEffect(() => {
-    if (dialogRef.current != null) {
-      dialogRef.current.showModal()
-    }
-  }, []) */ 
 
-  const submit = (event: React.FormEvent): void => {
+  const enmascaramientoSubmit = (event: React.FormEvent): void => {
+    submit(event).catch(error => {
+      console.error('Error submitting form:', error)
+    })
+  }
+
+  const submit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault()
-      
+
     const fields = [
       '#centroCSPanel',
       '#direccionCSPanel',
-      '#telefonoCSPanel',
-
+      '#telefonoCSPanel'
 
     ]
 
     let valid = true
     fields.forEach((field) => {
-
       if ($(field).val() === '' || $(field).val() === null) {
         valid = false
         $(field).css('border', '1px solid red')
-      } else { 
-        $(field).css('border', '')   
+      } else {
+        $(field).css('border', '')
       }
     })
 
     if (valid) {
       const dataToSend = {
-        centro: $('#centroCSPanel').val(),
-        direccion: $('#direccionCSPanel').val(),
+        cs: $('#centroCSPanel').val(),
+        calle: $('#direccionCSPanel').val(),
         telefono: $('#telefonoCSPanel').val()
       }
-      console.log('Formulario enviado:', dataToSend)
+
+      await axiosInstance.post('/CS/save', dataToSend)
+      await LoadCS()
+      incrementConfiVar()
       closeDialog()
     }
   }
@@ -55,7 +69,7 @@ function AgregarTarea (): JSX.Element {
 
         <div className='login'>
           <h2>Agregar un Centro de Salud</h2>
-          <form onSubmit={submit}>
+          <form onSubmit={enmascaramientoSubmit}>
             <div className='form-group form-group-individual '>
               <label htmlFor='centroCS'>Centro</label>
               <input type='text' id='centroCSPanel' name='centroCS' placeholder='--------' pattern='[A-Za-z\s]+' title='Solo letras y espacios' />

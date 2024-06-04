@@ -56,10 +56,18 @@ public class CreateProfesionalesDTO {
     @NotBlank
     private Set<Erole> roles;
 
+    @NotBlank(message = "El telefono no puede estar vacío")
+    @Column(name = "telefono")
+    private String telefono;
+
     // Propiedades adicionales para manejo del estado del usuario
+    @Builder.Default
     private boolean isEnabled = true;
+    @Builder.Default
     private boolean isAccountNoExpired = true;
+    @Builder.Default
     private boolean isAccountNoLocked = true;
+    @Builder.Default
     private boolean isCredentialsNoExpired = true;
 
     // En este caso no incluimos roles porque normalmente se asignan después de crear el usuario o a través de un proceso diferente

@@ -55,6 +55,10 @@ public class UsuarioService {
     // Buscar por DNI
     public List<ESAD_usuarios> getDni(String id){ return repository.findByDni(id);}
 
+    // Buscar por historico
+    public List<ESAD_usuarios> getHistorico(Boolean historico) {
+        return repository.findByHistorico(historico);}
+
     //------------------------------------------------------------------
 
     // Crear

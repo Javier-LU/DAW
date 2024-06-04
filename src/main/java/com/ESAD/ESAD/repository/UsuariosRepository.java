@@ -25,6 +25,9 @@ public interface UsuariosRepository extends JpaRepository <ESAD_usuarios, Intege
     // Buscar por DNI
     List<ESAD_usuarios> findByDni( String nombre);
 
+    // Buscar por historico
+    List<ESAD_usuarios> findByHistorico(Boolean historico);
+
     // Buscar por nombre y apellidos
     @Query("SELECT u FROM ESAD_usuarios u " +
             "WHERE (u.nombre IS NOT NULL AND u.nombre != '' AND u.nombre LIKE %?1%) " +

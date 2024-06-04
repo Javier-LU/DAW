@@ -1,10 +1,25 @@
+/**
+ * @module profesionales
+ * @description Componente  para mostrar la tabla de profesionales.
+ * Este componente muestra una tabla de profesionales con sus datos, incluyendo nombre, apellidos, DNI,
+ * profesión, correo electrónico, teléfono y contraseña. Permite editar los datos de los profesionales,
+ * seleccionar una profesión de un menú desplegable y ordenar la tabla por columnas.
+ * @returns {JSX.Element} Elemento JSX que representa el contador para profesionales.
+ * @author Francisco Javier Luque Pardo.
+ * @date 2024-30-03
+ */
+
 import '../css/cuerpo.scss'
 import '../css/cuepoSmall.scss'
 import { useTableData } from '../../datos/funcionesGlobales'
 import * as datos from '../../datos/datosGlobales'
 import React, { useState, useEffect } from 'react'
+import { useEstado } from '../../datos/EstadoContext'
+import axiosInstance from '../../datos/apis/axiosInstance'
 
 const Counter: React.FC = () => {
+  const { setTable, setTableID } = useEstado()
+
   const {
     dataPr = [],
     selectedRows = [],
@@ -18,19 +33,95 @@ const Counter: React.FC = () => {
   useEffect(() => {
     setLocalData(dataPr)
   }, [dataPr])
+  /**
+   * Función asíncrona para enviar datos actualizados a la API.
+   * @param {Object} dataToSend - Los datos a enviar.
+   * @returns {Promise<void>} Promesa vacía que indica la finalización del envío.
+   */
+  const sendApi = async (dataToSend: any): Promise<void> => {
+    let rol
+    const cualificacion = dataToSend.profesion.toLowerCase().replace(/\s+/g, '')
 
-  const handleSelectChange = (index: number, value: string): void => {
+    const pro = dataToSend.profesion.toUpperCase().replace(/\s+/g, '')
+    if (cualificacion === 'medico' || cualificacion === 'enfermero') {
+      rol = 'SANITARY'
+    } else if (cualificacion === 'auxiliar') {
+      rol = 'MANAGER'
+    } else if (cualificacion === 'administrativo') {
+      rol = 'ADMINISTRATIVE'
+    }
+    let password2
+    if (dataToSend.password === '........') {
+      password2 = '1234'
+    } else {
+      password2 = dataToSend.password
+    }
+
+    const data = {
+
+      nombre: dataToSend.nombre,
+      primerApellido: dataToSend.primerApellido,
+      segundoApellido: dataToSend.segundoApellido,
+      dni: dataToSend.dni,
+      password: password2,
+      email: dataToSend.email,
+      cualificacion: pro,
+      roles: [rol],
+      isEnabled: true,
+      accountNoExpired: true,
+      accountNoLocked: true,
+      credentialsNoExpired: true
+    }
+    const id = dataToSend.id
+    try {
+      await axiosInstance.put(`/profesionales/update/${id}`, data)
+    } catch (error) {
+      console.error('Error updating data:', error)
+    }
+  }
+  /**
+   * Maneja el cambio de selección en el menú desplegable de profesiones.
+   * @param {number} index - El índice del profesional.
+   * @param {string} value - El nuevo valor de la profesión.
+   * @returns {Promise<void>} Promesa vacía que indica la finalización del cambio.
+   */
+  const handleSelectChange = async (index: number, value: string): Promise<void> => {
     const newData = [...localData]
     newData[index].profesion = value
     setLocalData(newData)
-  }
+    const updatedRow = getRowData(index, newData)
 
-  const handleInputChange = (index: number, field: keyof datos.RowDataPro, value: string | number): void => {
+    await sendApi(updatedRow)
+  }
+  /**
+   * Maneja el cambio de entrada en los campos de entrada.
+   * @param {number} index - El índice del profesional.
+   * @param {string} field - El campo que ha cambiado.
+   * @param {string | number} value - El nuevo valor del campo.
+   * @returns {Promise<void>} Promesa vacía que indica la finalización del cambio.
+   */
+  const handleInputChange = async (index: number, field: keyof datos.RowDataPro, value: string | number): Promise<void> => {
     const newData = [...localData]
     newData[index][field] = value as never
     setLocalData(newData)
-  }
+    const updatedRow = getRowData(index, newData)
 
+    await sendApi(updatedRow)
+  }
+  /**
+   * Obtiene los datos de una fila específica.
+   * @param {number} index - El índice de la fila.
+   * @param {datos.RowDataPro[]} data - Los datos de la fila.
+   * @returns {datos.RowDataPro} Los datos de la fila especificada.
+   */
+  const getRowData = (index: number, data: datos.RowDataPro[]): datos.RowDataPro => {
+    return data[index]
+  }
+  /**
+   * Ordena los datos en función de la clave especificada.
+   * @param {keyof datos.RowDataPro} key - La clave por la que se va a ordenar.
+   * @returns {void}
+   */
   const sortData = (key: keyof datos.RowDataPro): void => {
     let direction: 'ascending' | 'descending' = 'ascending'
 
@@ -54,10 +145,20 @@ const Counter: React.FC = () => {
     setLocalData(sortedData)
     setSelectedHeader(key)
   }
-
-
-
-  
+  /**
+   * Maneja el clic en una fila de la tabla.
+   * @param {number} index - El índice de la fila.
+   * @param {React.MouseEvent<HTMLTableRowElement>} event - El evento de clic.
+   * @param {string} rowId - El ID de la fila.
+   * @returns {void}
+   */
+  const humbleClick = (index: number, event: React.MouseEvent<HTMLTableRowElement>, rowId: string): void => {
+    if (handleRowClick != null) {
+      handleRowClick(index, event)
+    }
+    setTable('profesionales')
+    setTableID(rowId)
+  }
 
   return (
     <div className='main-container-cuerpo cuerpo-small'>
@@ -114,47 +215,46 @@ const Counter: React.FC = () => {
               <tr
                 key={index}
                 className={selectedRows.includes(row.id) ? 'selected' : ''}
-                onClick={(event) => handleRowClick?.(index, event)}
+                onClick={(event) => humbleClick(index, event, row.id)}
               >
                 <td className='id'>
-                  <input className='id idEvaluar' type='text' value={row.id} readOnly />
+                  <input key='profesionales' id='profesionalesIDE' className='id idEvaluar' type='text' value={row.id} readOnly />
                 </td>
                 <td className='nombre'>
-                  <input className='nombre' type='text' value={row.nombre} onChange={(e) => handleInputChange(index, 'nombre', e.target.value)} />
+                  <input className='nombre' type='text' value={row.nombre} onChange={async (e) => await handleInputChange(index, 'nombre', e.target.value)} />
                 </td>
                 <td className='primerApellido'>
-                  <input className='primerApellido' type='text' value={row.primerApellido} onChange={(e) => handleInputChange(index, 'primerApellido', e.target.value)} />
+                  <input className='primerApellido' type='text' value={row.primerApellido} onChange={async (e) => await handleInputChange(index, 'primerApellido', e.target.value)} />
                 </td>
                 <td className='segundoApellido'>
-                  <input className='segundoApellido' type='text' value={row.segundoApellido} onChange={(e) => handleInputChange(index, 'segundoApellido', e.target.value)} />
+                  <input className='segundoApellido' type='text' value={row.segundoApellido} onChange={async (e) => await handleInputChange(index, 'segundoApellido', e.target.value)} />
                 </td>
                 <td className='dni'>
-                  <input className='dni' type='text' value={row.dni} onChange={(e) => handleInputChange(index, 'dni', e.target.value)} />
+                  <input className='dni' type='text' value={row.dni} onChange={async (e) => await handleInputChange(index, 'dni', e.target.value)} />
                 </td>
                 <td className='profesion'>
-   
+
                   <select
                     name='cualificacionPro'
                     id='cualificacionProPanel'
                     value={row.profesion}
-                    onChange={(e) => handleSelectChange(index, e.target.value)}
+                    onChange={async (e) => await handleSelectChange(index, e.target.value)}
                   >
-          
+
                     {pro.map((profesion) => (
                       <option key={profesion.id} value={profesion.profesion}>{profesion.profesion}</option>
                     ))}
                   </select>
 
-
                 </td>
                 <td className='email'>
-                  <input className='email' type='text' value={row.email} onChange={(e) => handleInputChange(index, 'email', e.target.value)} />
+                  <input className='email' type='text' value={row.email} onChange={async (e) => await handleInputChange(index, 'email', e.target.value)} />
                 </td>
                 <td className='telefono'>
-                  <input className='telefono' type='text' value={row.telefono} onChange={(e) => handleInputChange(index, 'telefono', e.target.value)} />
+                  <input className='telefono' type='text' value={row.telefono} onChange={async (e) => await handleInputChange(index, 'telefono', e.target.value)} />
                 </td>
                 <td className='password'>
-                  <input className='password' type='text' value={row.password} onChange={(e) => handleInputChange(index, 'password', e.target.value)} />
+                  <input className='password' type='text' value={row.password} onChange={async (e) => await handleInputChange(index, 'password', e.target.value)} />
                 </td>
               </tr>
             ))}

@@ -1,9 +1,22 @@
-import { useRef, useEffect, useState } from 'react'
+
+/**
+ * @module agregarPacienteComp
+ * @description Componente para agregar un nuevo paciente.
+ * Este componente maneja la lógica para enviar los datos de un nuevo paciente al servidor y actualizar los datos correspondientes.
+ * @returns {JSX.Element} Elemento JSX que contiene el formulario para agregar un nuevo paciente.
+ * @author Francisco Javier Luque Pardo.
+ * @date 2024-30-03
+ */
+
+import { useRef, useState } from 'react'
 import '../../datos/panelesFlotantes.scss'
 import * as datos from '../../datos/datosGlobales'
+import axiosInstance from '../../datos/apis/axiosInstance'
+import { useEstado } from '../../datos/EstadoContext'
+import LoadPacienteData from '../../datos/apis/get/loadPacienteData'
 import $ from 'jquery'
 
-function AgregarTarea(): JSX.Element {
+function AgregarTarea (): JSX.Element {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const [dataEn] = useState<datos.RowDataEnfermedad[]>(datos.initialDataEnfermedad)
   const [dataCS] = useState<datos.RowDataCS[]>(datos.initialDataCS)
@@ -11,7 +24,7 @@ function AgregarTarea(): JSX.Element {
   const [selectedCS, setSelectedCS] = useState<string>('default')
   const [selectedEnfermedad, setSelectedEnfermedad] = useState<string>('default')
   const [selectedEquipo, setSelectedEquipo] = useState<string>('default')
-
+  const { variableMenu, incrementTrigger } = useEstado()
   const closeDialog = (): void => {
     if (dialogRef.current != null) {
       dialogRef.current.close()
@@ -29,7 +42,13 @@ function AgregarTarea(): JSX.Element {
     setSelectedEquipo(e.target.value)
   }
 
-  const submit = (event: React.FormEvent): void => {
+  const enmascaramientoSubmit = (event: React.FormEvent): void => {
+    submit(event).catch(error => {
+      console.error('Error submitting form:', error)
+    })
+  }
+
+  const submit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault()
 
     const fields = [
@@ -56,40 +75,77 @@ function AgregarTarea(): JSX.Element {
     })
 
     if (valid) {
-      const getCentroSaludId = (nombreCentro: string) => {
-        const centro = dataCS.find(c => c.cs === nombreCentro)
-        return centro ? centro.id : null
+      const normalizeString = (str: string): string => {
+        return str.replace(/\s+/g, '').toLowerCase()
       }
 
-      const getEnfermedadId = (idEnfermedad: string) => {
-        const enfermedad = dataEn.find(e => e.id === idEnfermedad)
-        return enfermedad ? enfermedad.id : null
+      const getCentroSaludId = (nombreCentro: string): string | null => {
+        const centro = dataCS.find(c => normalizeString(c.cs) === normalizeString(nombreCentro))
+
+        return (centro != null) ? centro.id : null
       }
 
-      const getEquipoId = (idEquipo: string) => {
-        const equipo = dataEqu.find(e => e.id === idEquipo)
-        return equipo ? equipo.id : null
+      const getEnfermedadId = (idEnfermedad: string): string | null => {
+        const enfermedad = dataEn.find(e => normalizeString(e.enfermedad) === normalizeString(idEnfermedad))
+        return (enfermedad != null) ? enfermedad.id : null
       }
 
+      const getEquipoId = (idEquipo: string): string | null => {
+        const equipo = dataEqu.find(e => normalizeString(e.equipo) === normalizeString(idEquipo))
+
+        return (equipo != null) ? equipo.id : null
+      }
+
+      const formatDate = (date: Date): string => {
+        const day = String(date.getDate()).padStart(2, '0')
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const year = date.getFullYear()
+        return `${year}-${month}-${day}`
+      }
       const dataToSend = {
-        centroSaludId: getCentroSaludId(selectedCS),
-        enfermedadId: getEnfermedadId(selectedEnfermedad),
-        equipoId: getEquipoId(selectedEquipo),
-        nombrePaciente: $('#nombrePaciente').val(),
+        enPrograma: true,
+        ingreso: formatDate(new Date()),
+        equipoId: getEquipoId(selectedEquipo), // Valor por defecto si es null
+        nombre: $('#nombrePaciente').val(),
         primerApellido: $('#primerPaciente').val(),
         segundoApellido: $('#segundoPaciente').val(),
-        fecha: $('#fechaPaciente').val(),
-        DNI: $('#DNIPaciente').val(),
-        direccion: $('#direcciónPaciente').val(),
-        telefono: $('#telefonoPaciente').val(),
-        residencia: $('#residencia').is(':checked')
+        dni: $('#DNIPaciente').val(),
+        direccionResidencia: $('#direcciónPaciente').val(),
+        telefonoResidencia: $('#telefonoPaciente').val(),
+        fechaNacimiento: '1960-01-01', // Datos inventados
+        edad: 64, // Datos inventados
+        enfermedadId: getEnfermedadId(selectedEnfermedad), // Valor por defecto si es null
+        tipoSalidaId: 1, // Datos inventados
+        lugarSalida: 'Hospital Central', // Datos inventados
+        lugarFecha: '2024-04-27', // Datos inventados
+        centroSaludId: getCentroSaludId(selectedCS), // Valor por defecto si es null
+        historico: false
       }
-      console.log('Formulario enviado:', dataToSend)
+      await axiosInstance.post('/usuarios/createUsuario', dataToSend)
+
       closeDialog()
+      const findEquipoId = (equipo: string): string | undefined => {
+        const found = datos.initialDataEquipo.find((item) => item.equipo === equipo)
+        return found?.id
+      }
+
+      if (variableMenu === 'Activos') {
+        await LoadPacienteData('historicosF', '0X')
+        incrementTrigger()
+      } else if (variableMenu === 'Historicos') {
+        await LoadPacienteData('historicosV', '0X')
+        incrementTrigger()
+      } else {
+        const id = findEquipoId(variableMenu)
+        if (id !== null && id !== undefined) {
+          await LoadPacienteData('equipo', id)
+          incrementTrigger()
+        }
+      }
     }
   }
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     if (dialogRef.current != null) {
       dialogRef.current.showModal()
     }
@@ -100,7 +156,7 @@ function AgregarTarea(): JSX.Element {
       <dialog ref={dialogRef} id='agregarPaciente' className='login-dialog'>
         <div className='login'>
           <h2>Agregar un nuevo paciente</h2>
-          <form onSubmit={submit}>
+          <form onSubmit={enmascaramientoSubmit}>
             <div className='form-group-duo'>
               <div className='form-group duo-uno'>
                 <label htmlFor='nombrePaciente'>Nombre</label>
@@ -137,7 +193,7 @@ function AgregarTarea(): JSX.Element {
             </div>
             <div className='form-group-duo'>
               <label className='form-group-duo-label-personalizado'>
-                <input id='residencia' type='checkbox' name='condiciones'  /> Vive actualmente en una residencia.
+                <input id='residencia' type='checkbox' name='condiciones' /> Vive actualmente en una residencia.
               </label>
             </div>
             <div className='form-group-duo'>
@@ -173,7 +229,7 @@ function AgregarTarea(): JSX.Element {
               </div>
 
             </div>
-            <div className='form-group form-group-parche' >
+            <div className='form-group form-group-parche'>
               <label htmlFor='enfermedad'>Equipo</label>
               <select
                 name='equipo'
