@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module datosGlobales
  * @description   Este archivo contiene definiciones de datos y funciones para gestionar datos iniciales y actualizarlos en diferentes secciones de la aplicación.
  * Define interfaces para estructurar los datos de pacientes, tareas, equipos, enfermedades, centros de salud, salidas, valores fijos, profesionales y profesiones.
  * También proporciona funciones para actualizar estos datos iniciales. Cada sección tiene una interfaz para los datos y una función para actualizar los mismos.
@@ -258,9 +258,16 @@ export let initialDataEquipo: RowDataEquipo[] = [
 
 ]
 export const updateDataEquipo = (newData: RowDataEquipo[]): void => {
-  initialDataEquipo = newData
+  const updatedData = newData.map(data => ({
+    ...data,
+    id: `equipo_${data.id}`,
+    medico: { ...data.medico, id: `equipo_${data.medico.id}` },
+    enfermera: { ...data.enfermera, id: `equipo_${data.enfermera.id}` },
+    auxiliar: { ...data.auxiliar, id: `equipo_${data.auxiliar.id}` },
+    administrativo: { ...data.administrativo, id: `equipo_${data.administrativo.id}` }
+  }))
+  initialDataEquipo = updatedData
 }
-
 // --------------------------------------------
 // Datos generales para Enfermedad
 export interface RowDataEnfermedad {
@@ -322,7 +329,11 @@ export let initialDataCS: RowDataCS[] = [
 
 ]
 export const updateDataCS = (newData: RowDataCS[]): void => {
-  initialDataCS = newData
+  const updatedData = newData.map(data => ({
+    ...data,
+    id: `cs_${data.id}`
+  }))
+  initialDataCS = updatedData
 }
 
 // --------------------------------------------

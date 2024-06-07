@@ -102,10 +102,26 @@ function AgregarTarea (): JSX.Element {
         const year = date.getFullYear()
         return `${year}-${month}-${day}`
       }
+      let centro = getCentroSaludId(selectedCS)
+      console.log(centro)
+      if (centro.includes('cs')) {
+        centro = centro.split('_')[1]
+      }
+      console.log('selectedCS', centro, selectedCS)
+      let equipo = selectedEquipo
+      console.log(equipo)
+      if (equipo.includes('equipo')) {
+        equipo = equipo.split('_')[1]
+      }
+      console.log('selectedEnfermedad', selectedEnfermedad)
+      // equipo = getEquipoId(equipo)
+      // console.log('equipo', equipo)
+      // getEnfermedadId(selectedEnfermedad)
+
       const dataToSend = {
         enPrograma: true,
         ingreso: formatDate(new Date()),
-        equipoId: getEquipoId(selectedEquipo), // Valor por defecto si es null
+        equipoId: equipo, // Valor por defecto si es null
         nombre: $('#nombrePaciente').val(),
         primerApellido: $('#primerPaciente').val(),
         segundoApellido: $('#segundoPaciente').val(),
@@ -114,13 +130,16 @@ function AgregarTarea (): JSX.Element {
         telefonoResidencia: $('#telefonoPaciente').val(),
         fechaNacimiento: '1960-01-01', // Datos inventados
         edad: 64, // Datos inventados
-        enfermedadId: getEnfermedadId(selectedEnfermedad), // Valor por defecto si es null
+        enfermedadId: selectedEnfermedad, // Valor por defecto si es null
         tipoSalidaId: 1, // Datos inventados
         lugarSalida: 'Hospital Central', // Datos inventados
         lugarFecha: '2024-04-27', // Datos inventados
-        centroSaludId: getCentroSaludId(selectedCS), // Valor por defecto si es null
+        centroSaludId: centro, // Valor por defecto si es null
         historico: false
       }
+      const jsonData = JSON.stringify(dataToSend, null, 2);
+
+      console.log(jsonData)
       await axiosInstance.post('/usuarios/createUsuario', dataToSend)
 
       closeDialog()

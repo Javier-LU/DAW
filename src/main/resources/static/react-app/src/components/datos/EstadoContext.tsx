@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module EstadoContext
  * @description  Este módulo proporciona un contexto de estado y un hook personalizado para gestionar y acceder
  * a los estados globales de la aplicación. El contexto de estado contiene variables y funciones
  * relacionadas con el estado de la aplicación, como contadores de actualización, valores de menú,

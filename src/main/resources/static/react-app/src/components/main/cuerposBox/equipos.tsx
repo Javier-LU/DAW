@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module equipos
  * @description Componente funcional que muestra una tabla con datos específicos y funcionalidades de manipulación de datos.
  * @returns {JSX.Element} Elemento JSX que representa el componente Counter.
  * @author Francisco Javier Luque Pardo.
@@ -84,15 +84,13 @@ const Counter: React.FC = () => {
   }
 
   const normalizeString = (str: string | undefined): string => {
-    console.log(str)
     if (str === undefined) return ''
     return str.toLowerCase().replace(/\s+/g, '')
   }
   const findPersonaId = (persona: datos.Persona, profesion: string, personasList: datos.RowDataPro[]): string | undefined => {
-    console.log('Buscando:', persona)
     const pers = persona
     const partes = pers.split(' ')
-    console.log(partes)
+
     const found = personasList.find(
       p =>
         normalizeString(p.nombre) === normalizeString(partes[0]) &&
@@ -101,22 +99,21 @@ const Counter: React.FC = () => {
         normalizeString(p.profesion) === normalizeString(profesion)
     )
     if (found != null) {
-      console.log('Encontrado:', found)
+
     } else {
-      console.log('No encontrado')
+
     }
     return (found != null) ? found.id : undefined
   }
 
   const findCentroId = (centro: string, centrosList: datos.RowDataCS[]): string | undefined => {
-    console.log('Buscando centro:', centro)
     const found = centrosList.find(
       c => normalizeString(c.cs) === normalizeString(centro)
     )
     if (found != null) {
-      console.log('Centro encontrado:', found)
+
     } else {
-      console.log('Centro no encontrado')
+
     }
     return (found != null) ? found.id : undefined
   }
@@ -143,7 +140,7 @@ const Counter: React.FC = () => {
     if (centro === undefined) {
       centro = findCentroId(dataToSend.centro, datos.initialDataCS)
     }
-    console.log(medico, enfermero, auxiliar, administrativo, centro)
+
     const data = {
 
       equipo: dataToSend.equipo, // Replace with your desired team name
@@ -166,7 +163,7 @@ const Counter: React.FC = () => {
     }
     const id: string | number = dataToSend.id
     const datosJSON = JSON.stringify(data, null, 2)
-    console.log(datosJSON)
+
     try {
       await axiosInstance.put(`/equipo/update/${id}`, data)
     } catch (error) {

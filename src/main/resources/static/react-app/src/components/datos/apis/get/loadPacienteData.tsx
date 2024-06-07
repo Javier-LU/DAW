@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module loadPacienteData
  * @description  Función asincrónica que carga todos los datos necesarios.
  * @returns {Promise<void>} Promesa vacía que indica la finalización de la carga.
  * @author Francisco Javier Luque Pardo.
@@ -14,6 +14,9 @@ const loadTareaData = async (condicion: string, equipo: string): Promise<void> =
   if (condicion === 'todos') {
     response = await axiosInstance.get('/usuarios/all')
   } else if (condicion === 'equipo') {
+    if (equipo.includes('equipo')) {
+      equipo = equipo.split('_')[1]
+    }
     response = await axiosInstance.get('/usuarios/getEquipo/' + equipo)
   } else if (condicion === 'historicosF') {
     response = await axiosInstance.get('/usuarios/historico?historico=false')
@@ -22,7 +25,7 @@ const loadTareaData = async (condicion: string, equipo: string): Promise<void> =
   } else {
     response = await axiosInstance.get('/usuarios/historico?historico=true')
   }
-
+  console.log(condicion, response)
   const transformedData: datos.RowData[] = []
 
   for (const item of response.data) {
@@ -50,10 +53,10 @@ const loadTareaData = async (condicion: string, equipo: string): Promise<void> =
     transformedData.push(transformedItem)
   }
 
+  console.log(transformedData)
   datos.updateData(transformedData)
 
   // Actualizamos los datos globales con el array completo
-  datos.updateData(transformedData)
 }
 
 export default loadTareaData

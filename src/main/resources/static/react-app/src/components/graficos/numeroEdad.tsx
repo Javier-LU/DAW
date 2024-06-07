@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module numeroEdad
  * @description Componente funcional que representa un gráfico de barras personalizado utilizando Recharts.
  * Este gráfico muestra una gráfica de rango de poblacion por edad.
  * @returns {JSX.Element} Elemento JSX que representa el gráfico de barras.

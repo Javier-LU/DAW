@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module funcionesGlobales
  * @description  * Hook personalizado que gestiona los datos de la tabla y proporciona funciones para manipularlos.
  * @param {string} llaveShowDialog - Indica qué tipo de diálogo se debe mostrar.
  * @returns {Partial<TableDataHook>} Objeto con propiedades y funciones para manipular los datos de la tabla.
@@ -116,10 +116,26 @@ export const useTableData = (llaveShowDialog: string): Partial<TableDataHook> =>
    * @returns {Object} Los datos transformados.
    */
   const transformData = (data: any): any => {
+    let centro = getCentroSaludId(data.centroSalud)
+    if (centro.includes('cs')) {
+      centro = centro.split('_')[1]
+    }
+    let equipo = getEquipoId(data.equipo)
+    if (equipo.includes('equipo')) {
+      equipo = equipo.split('_')[1]
+    }
+    let resi
+
+    if (data.residencia === 'No') {
+      resi = false
+    } else {
+      resi = true
+    }
+
     return {
       enPrograma: true,
       ingreso: formatDate(new Date()),
-      equipoId: getEquipoId(data.equipo),
+      equipoId: equipo,
       nombre: data.nombre,
       primerApellido: data.primerApellido,
       segundoApellido: data.segundoApellido,
@@ -133,9 +149,9 @@ export const useTableData = (llaveShowDialog: string): Partial<TableDataHook> =>
       tipoSalidaId: getSalidadId(data.salida),
       lugarSalida: data.lugarSalida,
       lugarFecha: data.fechaSalida,
-      centroSaludId: getCentroSaludId(data.centroSalud),
+      centroSaludId: centro,
       historico: data.historico === 'Active',
-      residencia: data.residencia === 'Sí'
+      residencia: resi
 
     }
   }
@@ -156,12 +172,16 @@ export const useTableData = (llaveShowDialog: string): Partial<TableDataHook> =>
     dataToSend.historico = false */
     // Imprimir los datos en JSON
 
+    const jsonData = JSON.stringify(transformedData, null, 2)
+
+
     try {
       await axiosInstance.put(`/usuarios/update/${id}`, transformedData)
     } catch (error) {
       console.error('Error updating data:', error)
     }
   }
+
   /**
    * Esta función calcula la edad de una persona basándose en su fecha de nacimiento.
    * @param {string} birthdate - La fecha de nacimiento en formato "YYYY-MM-DD".

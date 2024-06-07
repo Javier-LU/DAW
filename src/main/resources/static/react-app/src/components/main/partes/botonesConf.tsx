@@ -57,7 +57,11 @@ const BotonesConf: React.FC<DatosConfProps> = ({ condicion }) => {
       for (const parte of partes) {
         if (valor === parte.trim()) {
           try {
-            await deleteByTableType(table, tableID)
+            const parts = tableID.split('_')
+            let result = parts[1]
+            if (result === undefined) { result = tableID }
+
+            await deleteByTableType(table, result)
 
             element.closest('tr').fadeOut(500, function () {
               $(this).remove() // Elimina la fila completa después de la animación

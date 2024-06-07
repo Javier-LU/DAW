@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module loadEquipo
  * @description  Función asincrónica que carga todos los datos necesarios.
  * @returns {Promise<void>} Promesa vacía que indica la finalización de la carga.
  * @author Francisco Javier Luque Pardo.
@@ -13,38 +13,53 @@ const loadTareaData = async (): Promise<void> => {
   const transformedData: datos.RowDataEquipo[] = []
 
   for (const item of response.data) {
+    const defaultPerson = {
+      nombre: '......',
+      primerApellido: '......',
+      segundoApellido: '......',
+      id: '......'
+    }
+  
     const transformedItem: datos.RowDataEquipo = {
       id: item.id.toString(),
       equipo: item.equipo ?? '......',
       centro: item.centro ?? '......',
-      medico: {
+      medico: item.medico
+? {
         nombre: item.medico.nombre ?? '......',
         primerApellido: item.medico.primerApellido ?? '......',
         segundoApellido: item.medico.segundoApellido ?? '......',
         id: item.medico.id ?? '......'
-      },
-      enfermera: {
+      }
+: defaultPerson,
+      enfermera: item.enfermero
+? {
         nombre: item.enfermero.nombre ?? '......',
         primerApellido: item.enfermero.primerApellido ?? '......',
         segundoApellido: item.enfermero.segundoApellido ?? '......',
         id: item.enfermero.id ?? '......'
-      },
-      auxiliar: {
+      }
+: defaultPerson,
+      auxiliar: item.auxiliar
+? {
         nombre: item.auxiliar.nombre ?? '......',
         primerApellido: item.auxiliar.primerApellido ?? '......',
         segundoApellido: item.auxiliar.segundoApellido ?? '......',
         id: item.auxiliar.id ?? '......'
-      },
-      administrativo: {
+      }
+: defaultPerson,
+      administrativo: item.administrativo
+? {
         nombre: item.administrativo.nombre ?? '......',
         primerApellido: item.administrativo.primerApellido ?? '......',
         segundoApellido: item.administrativo.segundoApellido ?? '......',
         id: item.administrativo.id ?? '......'
       }
+: defaultPerson
     }
+  
     transformedData.push(transformedItem)
   }
-
 
   // Actualizar los datos globales
   datos.updateDataEquipo(transformedData)

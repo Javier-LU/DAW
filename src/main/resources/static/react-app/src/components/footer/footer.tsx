@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module footer
  * @description Componente funcional que representa el pie de página de la aplicación.
  * @param {object} props - Propiedades del componente.
  * @param {string} props.activeButton - El botón activo actualmente.

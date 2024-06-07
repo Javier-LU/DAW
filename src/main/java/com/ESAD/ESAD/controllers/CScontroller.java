@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/CS")
@@ -48,7 +49,7 @@ public class CScontroller {
 
     // Actualizar una CS existente
     @PutMapping("/update/{id}")
-    public ESAD_CS updateEnfermedad(@PathVariable Integer id,@RequestBody ESAD_CS cs) {
+    public ESAD_CS updateEnfermedad(@PathVariable Integer  id, @RequestBody ESAD_CS cs) {
         cs.setId(id);
         return service.updateCS(cs);
     }

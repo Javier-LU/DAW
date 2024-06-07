@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module centrosSalud
  * @description Componente funcional que muestra una tabla con datos específicos y funcionalidades de manipulación de datos.
  * @returns {JSX.Element} Elemento JSX que representa el componente Counter.
  * @author Francisco Javier Luque Pardo.
@@ -67,7 +67,7 @@ const Counter: React.FC = () => {
   const handleInputChange = async (index: number, field: keyof datos.RowDataCS, value: string | number): Promise<void> => {
     const newData = [...localData]
     newData[index][field] = value as never
-    console.log(newData)
+
     setLocalData(newData)
 
     await sendApi(newData[index])

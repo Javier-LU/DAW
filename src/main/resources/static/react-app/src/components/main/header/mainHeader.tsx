@@ -39,7 +39,7 @@ const HeaderMainPT: React.FC<HeaderMainPTProps> = ({ principal, boton, navItems,
   const {
     showDialog
 
-  } = useTableData('agregarTarea')
+  } = useTableData('agregarPaciente')
   const index = 0
   /**
    * Encuentra el ID de un equipo basado en su nombre.
@@ -64,8 +64,11 @@ const HeaderMainPT: React.FC<HeaderMainPTProps> = ({ principal, boton, navItems,
       await LoadPacienteData('historicosV', '0X')
       incrementTrigger()
     } else {
-      const id = findEquipoId(text)
+      let id = findEquipoId(text)
       if (id !== null && id !== undefined) {
+        if (id.includes('equipo')) {
+          id = id.split('_')[1]
+        }
         await LoadPacienteData('equipo', id)
         incrementTrigger()
       }
@@ -114,7 +117,7 @@ const HeaderMainPT: React.FC<HeaderMainPTProps> = ({ principal, boton, navItems,
       if (index === 2) return acc + `&segundoApellido=${curr}`
       return acc
     }, '')
-
+    console.log('searchParams__________', searchParams)
     await LoadPacienteData('buscar', searchParams)
     incrementTrigger()
   }

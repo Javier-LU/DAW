@@ -22,16 +22,33 @@ const Counter: React.FC = () => {
   const { incrementTriggerTareas } = useEstado()
 
   const [dataS] = useState<datos.RowDataT[]>(datos.initialDataT)
-
+  /**
+   * Normaliza una cadena eliminando espacios y convirtiéndola a minúsculas.
+   * @param {string} str - La cadena a normalizar.
+   * @returns {string} La cadena normalizada.
+   */
   const normalizeString = (str: string): string => {
     return str.replace(/\s+/g, '').toLowerCase()
   }
-
+  /**
+   * Obtiene el ID de la tarea basándose en su nombre.
+   * @param {string} nombreCentro - El nombre de la tarea.
+   * @returns {string | null} El ID de la tarea o null si no se encuentra.
+   */
   const getTareaId = (nombreCentro: string): string | null => {
     const centro = dataS.find(c => normalizeString(c.tareas) === normalizeString(nombreCentro))
     return centro
   }
-
+  /**
+   * Maneja el cambio en el tipo de tarea o la fecha prevista de una tarea.
+   * @param {string} id - El ID de la tarea.
+   * @param {string} fecha - La fecha prevista de la tarea.
+   * @param {string} tarea - El tipo de tarea.
+   * @param {string} idUsuario - El ID del usuario asociado a la tarea.
+   * @param {string} field - El campo que ha cambiado ('tarea' o 'fecha').
+   * @param {string} value - El nuevo valor del campo.
+   * @returns {Promise<void>} Promesa vacía que indica la finalización del cambio.
+   */
   const handleTareaChange = async (id: string, fecha: string, tarea: string, idUsuario: string, field: string, value: string): Promise<void> => {
     if (field === 'tarea') {
       tarea = value
@@ -64,7 +81,11 @@ const Counter: React.FC = () => {
     // Manejo adicional del error, como mostrar un mensaje al usuario
     }
   }
-
+  /**
+   * Maneja el evento de eliminación de una tarea.
+   * @param {string} id - El ID de la tarea a eliminar.
+   * @returns {Promise<void>} Promesa vacía que indica la finalización de la eliminación.
+   */
   const handleDelete = async (id: string): Promise<void> => {
     setTareas(prevTareas => prevTareas.filter(tarea => tarea.id !== id))
 
@@ -72,7 +93,11 @@ const Counter: React.FC = () => {
     await loadTareaData()
     incrementTriggerTareas()
   }
-
+  /**
+   * Formatea una cadena de fecha.
+   * @param {string | null | undefined} dateString - La cadena de fecha a formatear.
+   * @returns {string} La cadena de fecha formateada.
+   */
   const formatDateString = (dateString: string | null | undefined): string => {
     if (dateString === null || dateString === undefined) {
       return ''

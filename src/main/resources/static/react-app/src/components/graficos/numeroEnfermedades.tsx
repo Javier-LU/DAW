@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module numeroEnfermedades
  * @description Componente funcional que representa un gráfico de barras personalizado utilizando Recharts.
  * Este gráfico muestra el número de casos.
  * @returns {JSX.Element} Elemento JSX que representa el gráfico de barras.

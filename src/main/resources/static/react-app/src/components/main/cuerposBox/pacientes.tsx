@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module pacientes
  * @description Componente para mostrar la tabla de pacientes.
  * Este componente muestra una tabla de profesionales con sus datos, incluyendo nombre, apellidos, DNI...
  * Permite editar los datos de los profesionales, seleccionar una pacientes y ordenar la tabla por columnas. *

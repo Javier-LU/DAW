@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module axiosInstance
  * @description  Configuración de Axios para realizar solicitudes HTTP a una API.
  * @author Francisco Javier Luque Pardo.
  * @date 2024-30-03

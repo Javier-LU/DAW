@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module numeroPacientesPorCentro
  * @description   Componente funcional que representa un gráfico de barras personalizado utilizando Recharts.
  * @returns {JSX.Element} Elemento JSX que representa el gráfico de barras.
  * @author Francisco Javier Luque Pardo.

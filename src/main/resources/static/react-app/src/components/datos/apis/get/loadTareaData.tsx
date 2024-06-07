@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module loadTareaData
  * @description  Función asincrónica que carga todos los datos necesarios.
  * @returns {Promise<void>} Promesa vacía que indica la finalización de la carga.
  * @author Francisco Javier Luque Pardo.

@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module numeroPacientes
  * @description Componente funcional que representa un gráfico de barras personalizado utilizando Recharts.
  * Este gráfico muestra datos sobre equipos.
  * @returns {JSX.Element} Elemento JSX que representa el gráfico de barras.

@@ -1,5 +1,5 @@
 /**
- * @module agregarCSComp
+ * @module inicializador
  * @description  * Componente que maneja la carga inicial de datos y la autenticación del usuario.
  * @param {InitialLoaderProps} props - Propiedades del componente.
  * @returns {JSX.Element} Elemento JSX que representa el componente.

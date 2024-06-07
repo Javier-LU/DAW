@@ -22,13 +22,21 @@ function AgregarTarea (): JSX.Element {
       dialogRef.current.close()
     }
   }
-
+  /**
+   * Maneja el envío del formulario y realiza las validaciones necesarias.
+   * @param {React.FormEvent} event - Evento del formulario.
+   * @returns {void}
+   */
   const enmascaramientoSubmit = (event: React.FormEvent): void => {
     submit(event).catch(error => {
       console.error('Error submitting form:', error)
     })
   }
-
+  /**
+   * Envía los datos del formulario al servidor.
+   * @param {React.FormEvent} event - Evento del formulario.
+   * @returns {Promise<void>} Promesa que indica la finalización del envío.
+   */
   const submit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault()
 

@@ -99,7 +99,12 @@ function AgregarTarea (): JSX.Element {
     if (valid) {
       const getCentroSaludId = (nombreCentro: string): string | null => {
         const centro = cs.find(c => c.cs === nombreCentro)
-        return (centro != null) ? centro.id : null
+
+        let idC = centro.id
+        if (idC.includes('cs')) {
+          idC = idC.split('_')[1]
+        }
+        return (centro != null) ? idC : null
       }
 
       const dataToSend = {
